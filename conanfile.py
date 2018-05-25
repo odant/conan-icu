@@ -3,7 +3,6 @@
 
 
 from conans import ConanFile, tools
-import os
 
 
 class ICUConan(ConanFile):
@@ -19,6 +18,10 @@ class ICUConan(ConanFile):
         "build_type": ["Debug", "Release"],
         "arch": ["x86", "x86_64", "mips"]
     }
+    options = {
+        "with_unit_tests": ["True", "False"]
+    }
+    default_options = "with_unit_tests=False"
     exports_sources = "src/*"
     no_copy_source = False
     build_policy = "missing"
@@ -39,6 +42,9 @@ class ICUConan(ConanFile):
             self.run("bash -C runConfigureICU %s" % " ".join(flags))
             cpu_count = tools.cpu_count() if self.settings.compiler != "Visual Studio" else "1"
             self.run("make -j %s" % cpu_count)
+            if self.options.with_unit_tests:
+                self.run("make check")
+            self.run("make install")
 
     def get_build_flags(self):
         flags = []
@@ -97,6 +103,10 @@ class ICUConan(ConanFile):
         self.copy("*gmockd.pdb", dst="bin", keep_path=False)
         self.copy("*gtest_maind.pdb", dst="bin", keep_path=False)
         self.copy("*gmock_maind.pdb", dst="bin", keep_path=False)
+
+    def package_id(self):
+        # ICU unit testing shouldn't affect the package's ID
+        self.info.options.with_unit_tests = "any"
 
     def package_info(self):
         pass
