@@ -37,8 +37,8 @@ class ICUConan(ConanFile):
         build_env = self.get_build_environment()
         with tools.chdir("src/source"), tools.environment_append(build_env):
             self.run("bash -C runConfigureICU %s" % " ".join(flags))
-            #self.run("bash -C %s %s" % (runConfigureICU, "Cygwin/MSVC --help"))
-            self.run("make -j %s" % tools.cpu_count())
+            cpu_count = tools.cpu_count() if self.settings.compiler != "Visual Studio" else "1"
+            self.run("make -j %s" % cpu_count)
 
     def get_build_flags(self):
         flags = []
