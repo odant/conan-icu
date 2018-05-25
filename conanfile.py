@@ -3,6 +3,7 @@
 
 
 from conans import ConanFile, tools
+import os
 
 
 class ICUConan(ConanFile):
@@ -37,9 +38,12 @@ class ICUConan(ConanFile):
 
     def build(self):
         flags = self.get_build_flags()
+        install_folder = os.path.join(self.build_folder, "icu_install").replace("\\", "/")
+        flags.append("--prefix=%s" % install_folder)
         build_env = self.get_build_environment()
         with tools.chdir("src/source"), tools.environment_append(build_env):
             self.run("bash -C runConfigureICU %s" % " ".join(flags))
+            #self.run("bash -C runConfigureICU Linux/gcc --help")
             cpu_count = tools.cpu_count() if self.settings.compiler != "Visual Studio" else "1"
             self.run("make -j %s" % cpu_count)
             if self.options.with_unit_tests:
@@ -59,7 +63,6 @@ class ICUConan(ConanFile):
             "--enable-shared",
             "--with-data-packaging=library",
             "--disable-samples",
-            "--prefix=%s" % self.package_folder
         ])
         return flags
 
@@ -84,29 +87,18 @@ class ICUConan(ConanFile):
         return env
 
     def package(self):
-        return
-        # CMake scripts
-        self.copy("FindGTest.cmake", dst=".", src=".", keep_path=False)
-        self.copy("FindGMock.cmake", dst=".", src=".", keep_path=False)
         # Headers
-        self.copy("*.h", dst="include", src="src/googletest/include", keep_path=True)
-        self.copy("*.h", dst="include", src="src/googlemock/include", keep_path=True)
+        self.copy("*", dst="include", src="icu_install/include", keep_path=True)
         # Libraries
-        self.copy("*.a", dst="lib", keep_path=False)
-        self.copy("*.lib", dst="lib", keep_path=False)
-        # PDB
-        self.copy("*gtest.pdb", dst="bin", keep_path=False)
-        self.copy("*gmock.pdb", dst="bin", keep_path=False)
-        self.copy("*gtest_main.pdb", dst="bin", keep_path=False)
-        self.copy("*gmock_main.pdb", dst="bin", keep_path=False)
-        self.copy("*gtestd.pdb", dst="bin", keep_path=False)
-        self.copy("*gmockd.pdb", dst="bin", keep_path=False)
-        self.copy("*gtest_maind.pdb", dst="bin", keep_path=False)
-        self.copy("*gmock_maind.pdb", dst="bin", keep_path=False)
+        self.copy("libicudata.so*", dst="lib", src="icu_install/lib", keep_path=False, symlinks=True)
+        self.copy("libicuuc.so*", dst="lib", src="icu_install/lib", keep_path=False, symlinks=True)
+        self.copy("libicui18n.so*", dst="lib", src="icu_install/lib", keep_path=False, symlinks=True)
+        self.copy("libicuio.so*", dst="lib", src="icu_install/lib", keep_path=False, symlinks=True)
 
     def package_id(self):
         # ICU unit testing shouldn't affect the package's ID
         self.info.options.with_unit_tests = "any"
 
     def package_info(self):
-        pass
+        self.cpp_info.libs = ["icuio", "icui18n", "icuuc", "icudata"]
+
