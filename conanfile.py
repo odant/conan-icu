@@ -20,9 +20,10 @@ class ICUConan(ConanFile):
         "arch": ["x86", "x86_64", "mips"]
     }
     options = {
-        "with_unit_tests": ["True", "False"]
+        "dll_sign": [True, False],
+        "with_unit_tests": [True, False]
     }
-    default_options = "with_unit_tests=False"
+    default_options = "dll_sign=True", "with_unit_tests=False"
     exports_sources = "src/*"
     no_copy_source = False
     build_policy = "missing"
@@ -35,7 +36,7 @@ class ICUConan(ConanFile):
         if self.settings.os == "Windows" and self.settings.compiler == "Visual Studio":
             self.build_requires("cygwin_installer/2.9.0@bincrafters/stable")
             self.build_requires("find_sdk_winxp/[~=1.0]@%s/stable" % self.user)
-            
+
     def build(self):
         flags = self.get_build_flags()
         install_folder = os.path.join(self.build_folder, "icu_install").replace("\\", "/")

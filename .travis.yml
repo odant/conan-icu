@@ -1,0 +1,56 @@
+env:
+  global:
+    CONAN_PRINT_RUN_COMMANDS: 1
+    CONAN_LOG_RUN_TO_OUTPUT: 1
+
+    CONAN_REFERENCE: icu/61.1
+    CONAN_USERNAME: odant
+    CONAN_CHANNEL: testing
+    CONAN_STABLE_CHANNEL: stable
+
+    CONAN_UPLOAD: https://api.bintray.com/conan/odant/conan
+    CONAN_LOGIN_USERNAME: dvetutnev
+    CONAN_STABLE_BRANCH_PATTERN: release/*
+
+linux: &linux_build
+  os: linux
+  dist: trusty
+  sudo: false
+  language: python
+  python: 2.7
+  services:
+    - docker
+
+matrix:
+  include:
+    - <<: *linux_build
+      env:
+       CONAN_GCC_VERSIONS: 6
+       CONAN_DOCKER_IMAGE: lasote/conangcc63
+       CONAN_ARCHS: x86_64
+
+    - <<: *linux_build
+      env:
+       CONAN_GCC_VERSIONS: 6
+       CONAN_DOCKER_IMAGE: lasote/conangcc63
+       CONAN_ARCHS: x86
+
+    - <<: *linux_build
+      env:
+       CONAN_GCC_VERSIONS: 7
+       CONAN_DOCKER_IMAGE: lasote/conangcc72
+       CONAN_ARCHS: x86_64
+
+    - <<: *linux_build
+      env:
+       CONAN_GCC_VERSIONS: 7
+       CONAN_DOCKER_IMAGE: lasote/conangcc72
+       CONAN_ARCHS: x86
+
+install:
+  - pip install conan
+  - pip install conan_package_tools
+  - conan user
+
+script:
+  - python build.py
