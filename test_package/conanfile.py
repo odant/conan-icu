@@ -12,7 +12,7 @@ class PackageTestConan(ConanFile):
     def imports(self):
         self.copy("*.pdb", dst="bin", src="bin")
         self.copy("*.dll", dst="bin", src="bin")
-        self.copy("*.so.*", dst="bin", src="lib")
+        self.copy("*.so*", dst="bin", src="lib")
 
     def build(self):
         cmake = CMake(self)
