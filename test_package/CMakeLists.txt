@@ -10,6 +10,9 @@ include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup(TARGETS)
 
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY bin)
+
+
 enable_testing()
 
 
@@ -19,6 +22,16 @@ set_target_properties(case
     PROPERTIES
     INSTALL_RPATH "$ORIGIN"
     BUILD_WITH_INSTALL_RPATH True
+)
+add_test(
+    NAME case_ldd
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+    COMMAND ldd case
+)
+add_test(
+    NAME case_ls
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+    COMMAND ls -l
 )
 add_test(
     NAME case
