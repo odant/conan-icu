@@ -120,6 +120,7 @@ class ICUConan(ConanFile):
         self.info.options.with_unit_tests = "any"
 
     def package_info(self):
+        self.cpp_info.defines = ["U_DISABLE_RENAMING=1"]
         if self.settings.os == "Windows":
             self.cpp_info.libs = tools.collect_libs(self)
         else:
