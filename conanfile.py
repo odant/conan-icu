@@ -29,8 +29,12 @@ class ICUConan(ConanFile):
     build_policy = "missing"
 
     def configure(self):
+        # Only C++11
         if self.settings.compiler.get_safe("libcxx") == "libstdc++":
             raise Exception("This package is only compatible with libstdc++11")
+        # DLL sign, only Windows
+        if self.settings.os != "Windows":
+            del self.options.dll_sign
 
     def build_requirements(self):
         if self.settings.os == "Windows" and self.settings.compiler == "Visual Studio":
