@@ -38,4 +38,4 @@ add_test(
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
     COMMAND case
 )
-set_property(TEST case PROPERTY ENVIRONMENT LD_DEBUG=files)
+set_property(TEST case PROPERTY ENVIRONMENT LD_DEBUG=libs)
