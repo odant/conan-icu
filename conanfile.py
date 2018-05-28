@@ -35,15 +35,15 @@ class ICUConan(ConanFile):
         if self.settings.os == "Windows" and self.settings.compiler == "Visual Studio":
             self.build_requires("cygwin_installer/2.9.0@bincrafters/stable")
             self.build_requires("find_sdk_winxp/[~=1.0]@%s/stable" % self.user)
-
+            
     def build(self):
         flags = self.get_build_flags()
         install_folder = os.path.join(self.build_folder, "icu_install").replace("\\", "/")
-        flags.append("--prefix=%s" % install_folder)
+        flags.append("--prefix=%s" % tools.unix_path(install_folder))
         build_env = self.get_build_environment()
         with tools.chdir("src/source"), tools.environment_append(build_env):
             self.run("bash -C runConfigureICU %s" % " ".join(flags))
-            #self.run("bash -C runConfigureICU Linux/gcc --help")
+            #self.run("bash -C runConfigureICU Cygwin/MSVC --help=recursive")
             cpu_count = tools.cpu_count() if self.settings.compiler != "Visual Studio" else "1"
             self.run("make -j %s" % cpu_count)
             if self.options.with_unit_tests:
@@ -61,9 +61,16 @@ class ICUConan(ConanFile):
         flags.extend([
             "--with-library-bits=%s" % {"x86": "32", "x86_64": "64", "mips": "32"}.get(str(self.settings.arch)),
             "--enable-shared",
+            "--disable-renaming",
             "--with-data-packaging=library",
-            "--disable-samples",
+            "--disable-samples"
         ])
+        if self.settings.os == "Windows" and self.settings.arch == "x86_64":
+            flags.append("--with-library-suffix=64")
+        if self.options.with_unit_tests:
+            flags.append("--enable-tests")
+        else:
+            flags.append("--disable-tests")
         return flags
 
     def get_target_platform(self):
@@ -89,16 +96,31 @@ class ICUConan(ConanFile):
     def package(self):
         # Headers
         self.copy("*", dst="include", src="icu_install/include", keep_path=True)
-        # Libraries
+        # Linux libraries
         self.copy("libicudata.so*", dst="lib", src="icu_install/lib", keep_path=False, symlinks=True)
         self.copy("libicuuc.so*", dst="lib", src="icu_install/lib", keep_path=False, symlinks=True)
         self.copy("libicui18n.so*", dst="lib", src="icu_install/lib", keep_path=False, symlinks=True)
         self.copy("libicuio.so*", dst="lib", src="icu_install/lib", keep_path=False, symlinks=True)
+        # Windows libraries
+        self.copy("icudt*.dll", dst="bin", src="src/source/lib", keep_path=False)
+        self.copy("icudt*.pdb", dst="bin", src="src/source/lib", keep_path=False)
+        self.copy("icudt*.lib", dst="lib", src="icu_install/lib", keep_path=False)
+        self.copy("icuuc*.dll", dst="bin", src="src/source/lib", keep_path=False)
+        self.copy("icuuc*.pdb", dst="bin", src="src/source/lib", keep_path=False)
+        self.copy("icuuc*.lib", dst="lib", src="icu_install/lib", keep_path=False)
+        self.copy("icuin*.dll", dst="bin", src="src/source/lib", keep_path=False)
+        self.copy("icuin*.pdb", dst="bin", src="src/source/lib", keep_path=False)
+        self.copy("icuin*.lib", dst="lib", src="icu_install/lib", keep_path=False)
+        self.copy("icuio*.dll", dst="bin", src="src/source/lib", keep_path=False)
+        self.copy("icuio*.pdb", dst="bin", src="src/source/lib", keep_path=False)
+        self.copy("icuio*.lib", dst="lib", src="icu_install/lib", keep_path=False)
 
     def package_id(self):
         # ICU unit testing shouldn't affect the package's ID
         self.info.options.with_unit_tests = "any"
 
     def package_info(self):
-        self.cpp_info.libs = ["icuio", "icui18n", "icuuc", "icudata"]
-
+        if self.settings.os == "Windows":
+            self.cpp_info.libs = tools.collect_libs(self)
+        else:
+            self.cpp_info.libs = ["icuio", "icui18n", "icuuc", "icudata"]
