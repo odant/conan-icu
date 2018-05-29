@@ -24,7 +24,7 @@ class ICUConan(ConanFile):
         "with_unit_tests": [True, False]
     }
     default_options = "dll_sign=True", "with_unit_tests=False"
-    exports_sources = "src/*"
+    exports_sources = "src/*", "FindICU.cmake"
     no_copy_source = False
     build_policy = "missing"
 
@@ -99,6 +99,8 @@ class ICUConan(ConanFile):
         return env
 
     def package(self):
+        # CMake script
+        self.copy("FindICU.cmake", dst=".", src=".", keep_path=False)
         # Headers
         self.copy("*", dst="include", src="icu_install/include", keep_path=True)
         # Linux libraries

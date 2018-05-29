@@ -16,17 +16,18 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY bin)
 enable_testing()
 
 
-add_executable(case case.cpp)
-target_link_libraries(case CONAN_PKG::icu)
-set_target_properties(case
+# Conan imported targets
+add_executable(case_CONAN_PKG case.cpp)
+target_link_libraries(case_CONAN_PKG CONAN_PKG::icu)
+set_target_properties(case_CONAN_PKG
     PROPERTIES
     INSTALL_RPATH "$ORIGIN"
     BUILD_WITH_INSTALL_RPATH True
 )
 add_test(
-    NAME case
+    NAME case_CONAN_PKG
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
-    COMMAND case
+    COMMAND case_CONAN_PKG
 )
 
 if(UNIX)
@@ -38,10 +39,27 @@ if(UNIX)
     )
 
     add_test(
-        NAME case
+        NAME case_ld_debug
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
-        COMMAND case
+        COMMAND case_CONAN_PKG
     )
-    set_property(TEST case PROPERTY ENVIRONMENT LD_DEBUG=libs)
+    set_property(TEST case_ld_debug PROPERTY ENVIRONMENT LD_DEBUG=libs)
 
 endif()
+
+
+# ICU imported tragets
+find_package(ICU REQUIRED)
+
+add_executable(case case.cpp)
+target_link_libraries(case ICU::io)
+set_target_properties(case
+    PROPERTIES
+    INSTALL_RPATH "$ORIGIN"
+    BUILD_WITH_INSTALL_RPATH True
+)
+add_test(
+    NAME case
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+    COMMAND case
+)
