@@ -24,18 +24,24 @@ set_target_properties(case
     BUILD_WITH_INSTALL_RPATH True
 )
 add_test(
-    NAME case_ldd
-    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
-    COMMAND ldd case
-)
-add_test(
-    NAME case_ls
-    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
-    COMMAND ls -l
-)
-add_test(
     NAME case
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
     COMMAND case
 )
-set_property(TEST case PROPERTY ENVIRONMENT LD_DEBUG=libs)
+
+if(UNIX)
+
+    add_test(
+        NAME case_ls
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+        COMMAND ls -l
+    )
+
+    add_test(
+        NAME case
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+        COMMAND case
+    )
+    set_property(TEST case PROPERTY ENVIRONMENT LD_DEBUG=libs)
+
+endif()
