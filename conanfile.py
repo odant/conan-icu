@@ -38,6 +38,7 @@ class ICUConan(ConanFile):
         # Configure Cygwin
         if self.settings.os == "Windows":
             self.options["cygwin_installer"].no_acl = True
+            self.options["cygwin_installer"].exclude_files = "*/link.exe"
 
     def build_requirements(self):
         if self.settings.os == "Windows" and self.settings.compiler == "Visual Studio":
