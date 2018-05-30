@@ -66,6 +66,7 @@ class ICUConan(ConanFile):
         flags.extend([
             "--with-library-bits=%s" % {"x86": "32", "x86_64": "64", "mips": "32"}.get(str(self.settings.arch)),
             "--enable-shared",
+            "--disable-static",
             "--disable-renaming",
             "--with-data-packaging=library",
             "--disable-samples"
