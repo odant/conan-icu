@@ -65,7 +65,7 @@ install:
   - pip install conan
   - pip install conan_package_tools
   - conan user
-  - conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
+  - conan remote add -i 1 bincrafters https://api.bintray.com/conan/bincrafters/public-conan
 
 build: false
 
