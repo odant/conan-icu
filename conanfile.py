@@ -134,6 +134,7 @@ class ICUConan(ConanFile):
     def package_info(self):
         self.cpp_info.defines = ["U_DISABLE_RENAMING=1"]
         if self.settings.os == "Windows":
-            self.cpp_info.libs = tools.collect_libs(self)
+            self.cpp_info.libs = ["icuio", "icuin", "icuuc", "icudt"]
         else:
             self.cpp_info.libs = ["icuio", "icui18n", "icuuc", "icudata"]
+
