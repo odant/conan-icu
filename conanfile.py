@@ -3,7 +3,15 @@
 
 
 from conans import ConanFile, tools
-import os
+from conans.errors import ConanException
+import os, glob
+
+
+def get_safe(options, name):
+    try:
+        return getattr(options, name, None)
+    except ConanException:
+        return None
 
 
 class ICUConan(ConanFile):
@@ -43,7 +51,9 @@ class ICUConan(ConanFile):
     def build_requirements(self):
         if self.settings.os == "Windows" and self.settings.compiler == "Visual Studio":
             self.build_requires("cygwin_installer/2.9.0@bincrafters/stable")
-            self.build_requires("find_sdk_winxp/[~=1.0]@%s/stable" % self.user)
+            self.build_requires("find_sdk_winxp/[>=1.0]@%s/stable" % self.user)
+        if get_safe(self.options, "dll_sign"):
+            self.build_requires("windows_signtool/[>=1.0]@%s/stable" % self.user)
 
     def build(self):
         flags = self.get_build_flags()
@@ -126,6 +136,17 @@ class ICUConan(ConanFile):
         self.copy("icuio*.dll", dst="bin", src="src/source/lib", keep_path=False)
         self.copy("icuio*.pdb", dst="bin", src="src/source/lib", keep_path=False)
         self.copy("icuio*.lib", dst="lib", src="icu_install/lib", keep_path=False)
+        # Sign DLL
+        if get_safe(self.options, "dll_sign"):
+            import windows_signtool
+            pattern = os.path.join(self.package_folder, "bin", "*.dll")
+            for fpath in glob.glob(pattern):
+                fpath = fpath.replace("\\", "/")
+                for alg in ["sha1", "sha256"]:
+                    is_timestamp = True if self.settings.build_type == "Release" else False
+                    cmd = windows_signtool.get_sign_command(fpath, digest_algorithm=alg, timestamp=is_timestamp)
+                    self.output.info("Sign %s" % fpath)
+                    self.run(cmd)
 
     def package_id(self):
         # ICU unit testing shouldn't affect the package's ID
