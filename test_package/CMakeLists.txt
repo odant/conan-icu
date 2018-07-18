@@ -28,6 +28,24 @@ add_test(
 )
 
 
+if(UNIX)
+
+    add_test(
+        NAME case_ls
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+        COMMAND ls -l
+    )
+
+    add_test(
+        NAME case_ld_debug
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+        COMMAND case_CONAN_PKG
+    )
+    set_property(TEST case_ld_debug PROPERTY ENVIRONMENT LD_DEBUG=libs)
+
+endif()
+
+
 # ICU imported tragets
 find_package(ICU REQUIRED)
 
