@@ -36,14 +36,12 @@ if(UNIX)
         COMMAND ls -l
     )
 
-    message(STATUS "LD_LIBRARY_PATH: $ENV{LD_LIBRARY_PATH}")
-
     add_test(
         NAME case_ld_debug
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
         COMMAND case_CONAN_PKG
     )
-    set_property(TEST case_ld_debug PROPERTY ENVIRONMENT LD_DEBUG=libs)
+    set_property(TEST case_ld_debug PROPERTY ENVIRONMENT LD_DEBUG=libs LD_LIBRARY_PATH=${CMAKE_BINARY_DIR}/bin)
 
 endif()
 
