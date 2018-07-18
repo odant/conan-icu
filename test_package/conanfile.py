@@ -22,11 +22,7 @@ class PackageTestConan(ConanFile):
         cmake.build()
 
     def test(self):
-        env = {}
-        if os.environ.get("TRAVIS") == "true":
-            env["LD_LIBRARY_PATH"] = os.path.join(os.getcwd(), "bin")
-        with tools.environment_append(env):
-            if self.settings.os == "Windows" and self.settings.compiler == "Visual Studio":
-                self.run("ctest --verbose --build-config %s" % self.settings.build_type)
-            else:
-                self.run("ctest --verbose")
+        if self.settings.os == "Windows" and self.settings.compiler == "Visual Studio":
+            self.run("ctest --verbose --build-config %s" % self.settings.build_type)
+        else:
+            self.run("ctest --verbose")
