@@ -13,7 +13,11 @@ conan_basic_setup(TARGETS)
 enable_testing()
 
 
-set(IS_TRAVIS $ENV{TRAVIS})
+set(IS_TRAVIS False)
+set(_TRAVIS $ENV{TRAVIS})
+if(_TRAVIS STREQUAL "true")
+    set(IS_TRAVIS True)
+endif()
 message(STATUS "Is Travis: ${IS_TRAVIS}")
 
 
@@ -30,7 +34,7 @@ add_test(
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
     COMMAND case_CONAN_PKG
 )
-if(IS_TRAVIS STREQUAL "true")
+if(IS_TRAVIS)
     set_property(TEST case_CONAN_PKG PROPERTY ENVIRONMENT LD_DEBUG=libs LD_LIBRARY_PATH=${CMAKE_BINARY_DIR}/bin)
 endif()
 
@@ -50,7 +54,7 @@ add_test(
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
     COMMAND case
 )
-if(TRAVIS STREQUAL "true")
+if(IS_TRAVIS)
     set_property(TEST case_CONAN_PKG PROPERTY ENVIRONMENT LD_DEBUG=libs LD_LIBRARY_PATH=${CMAKE_BINARY_DIR}/bin)
 endif()
 
