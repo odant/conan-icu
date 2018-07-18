@@ -1,4 +1,4 @@
-# Test for Conan package
+# Test for ICU Conan package
 # Dmitriy Vetutnev, ODANT, 2018
 
 
@@ -8,9 +8,6 @@ cmake_minimum_required(VERSION 3.0)
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup(TARGETS)
-
-
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY bin)
 
 
 enable_testing()
@@ -29,23 +26,6 @@ add_test(
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
     COMMAND case_CONAN_PKG
 )
-
-if(UNIX)
-
-    add_test(
-        NAME case_ls
-        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
-        COMMAND ls -l
-    )
-
-    add_test(
-        NAME case_ld_debug
-        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
-        COMMAND case_CONAN_PKG
-    )
-    set_property(TEST case_ld_debug PROPERTY ENVIRONMENT LD_DEBUG=libs)
-
-endif()
 
 
 # ICU imported tragets
