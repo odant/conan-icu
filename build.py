@@ -20,6 +20,8 @@ visual_toolsets = None
 if "CONAN_VISUAL_TOOLSETS" in os.environ:
     visual_toolsets = [s.strip() for s in os.environ["CONAN_VISUAL_TOOLSETS"].split(",")]
 dll_sign = False if "CONAN_DISABLE_DLL_SIGN" in os.environ else True
+# Is Travis ?
+is_travis = True if os.environ.get("TRAVIS") == "true" else False
 
 
 def vs_get_toolsets(compiler_version):
@@ -75,6 +77,8 @@ if __name__ == "__main__":
     # Replace build configurations
     builder.items = []
     for settings, options, env_vars, build_requires, _ in builds:
+        if is_travis:
+            env_vars["TRAVIS"] = "true"
         builder.add(
             settings=settings,
             options=options,
