@@ -36,6 +36,8 @@ if(UNIX)
         COMMAND ls -l
     )
 
+    message(STATUS "LD_LIBRARY_PATH: $ENV{LD_LIBRARY_PATH}")
+
     add_test(
         NAME case_ld_debug
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
