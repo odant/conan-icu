@@ -55,6 +55,6 @@ add_test(
     COMMAND case
 )
 if(IS_TRAVIS)
-    set_property(TEST case_CONAN_PKG PROPERTY ENVIRONMENT LD_DEBUG=libs LD_LIBRARY_PATH=${CMAKE_BINARY_DIR}/bin)
+    set_property(TEST case PROPERTY ENVIRONMENT LD_DEBUG=libs LD_LIBRARY_PATH=${CMAKE_BINARY_DIR}/bin)
 endif()
 
