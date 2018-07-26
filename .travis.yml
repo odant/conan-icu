@@ -8,7 +8,7 @@ env:
     CONAN_CHANNEL: testing
     CONAN_STABLE_CHANNEL: stable
 
-    CONAN_UPLOAD: https://api.bintray.com/conan/odant/conan
+    CONAN_UPLOAD: https://conan.kysa.me
     CONAN_LOGIN_USERNAME: dvetutnev
     CONAN_STABLE_BRANCH_PATTERN: release/*
 
