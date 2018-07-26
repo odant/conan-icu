@@ -51,7 +51,9 @@ class ICUConan(ConanFile):
     def build_requirements(self):
         if self.settings.os == "Windows" and self.settings.compiler == "Visual Studio":
             self.build_requires("cygwin_installer/2.9.0@bincrafters/stable")
-            self.build_requires("find_sdk_winxp/[>=1.0]@%s/stable" % self.user)
+            toolset = str(self.settings.compiler.get_safe("toolset"))
+            if toolset.endswith("_xp"):
+                self.build_requires("find_sdk_winxp/[>=1.0]@%s/stable" % self.user)
         if get_safe(self.options, "dll_sign"):
             self.build_requires("windows_signtool/[>=1.0]@%s/stable" % self.user)
 
