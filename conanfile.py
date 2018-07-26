@@ -43,10 +43,6 @@ class ICUConan(ConanFile):
         # DLL sign, only Windows
         if self.settings.os != "Windows":
             del self.options.dll_sign
-        # Configure Cygwin
-        if self.settings.os == "Windows":
-            self.options["cygwin_installer"].no_acl = True
-            self.options["cygwin_installer"].exclude_files = "*/link.exe"
 
     def build_requirements(self):
         if self.settings.os == "Windows" and self.settings.compiler == "Visual Studio":
