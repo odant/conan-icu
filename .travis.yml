@@ -9,7 +9,7 @@ env:
     CONAN_STABLE_CHANNEL: stable
 
     CONAN_UPLOAD: https://conan.kysa.me
-    CONAN_LOGIN_USERNAME: dvetutnev
+    CONAN_LOGIN_USERNAME: travis
     CONAN_STABLE_BRANCH_PATTERN: release/*
 
 linux: &linux_build
