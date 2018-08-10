@@ -59,6 +59,8 @@ class ICUConan(ConanFile):
         flags.append("--prefix=%s" % tools.unix_path(install_folder))
         build_env = self.get_build_environment()
         with tools.chdir("src/source"), tools.environment_append(build_env):
+            if self.settings.os == "Windows":
+                self.run("echo %PATH%")
             self.run("bash -C runConfigureICU %s" % " ".join(flags))
             #self.run("bash -C runConfigureICU Cygwin/MSVC --help=recursive")
             cpu_count = tools.cpu_count() if self.settings.compiler != "Visual Studio" else "1"
@@ -102,13 +104,21 @@ class ICUConan(ConanFile):
     def get_build_environment(self):
         env = {}
         if self.settings.os == "Windows" and self.settings.compiler == "Visual Studio":
-            env = tools.vcvars_dict(self.settings, filter_known_paths=False, force=True)
-            toolset = str(self.settings.compiler.get_safe("toolset"))
-            if toolset.endswith("_xp"):
-                import find_sdk_winxp
-                env = find_sdk_winxp.dict_append(self.settings.arch, env=env)
-            env["CFLAGS"] = "/FS"
-            env["CXXFLAGS"] = "/FS"
+            if tools.get_env("VisualStudioVersion") is not None:
+                self.output.warn("vcvars already set, skip")
+                #
+                self.output.warn("Shift Cygwin path to end")
+                path_lst = os.environ["PATH"].split(os.pathsep)
+                cygwin_path = self.deps_env_info["cygwin_installer"].path[0]
+                path_lst.remove(cygwin_path)
+                path_lst.append(cygwin_path)
+                os.environ["PATH"] = os.pathsep.join(path_lst)
+            else:
+                env = tools.vcvars_dict(self.settings, filter_known_paths=False, force=True)
+                toolset = str(self.settings.compiler.get_safe("toolset"))
+                if toolset.endswith("_xp"):
+                    import find_sdk_winxp
+                    env = find_sdk_winxp.dict_append(self.settings.arch, env=env)
         return env
 
     def package(self):
