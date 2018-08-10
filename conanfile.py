@@ -53,6 +53,10 @@ class ICUConan(ConanFile):
         if get_safe(self.options, "dll_sign"):
             self.build_requires("windows_signtool/[>=1.0]@%s/stable" % self.user)
 
+    def source(self):
+        if not tools.os_info.is_windows:
+            self.run("chmod a+x %s" % os.path.join(self.source_folder, "src/source/configure"))
+
     def build(self):
         flags = self.get_build_flags()
         install_folder = os.path.join(self.build_folder, "icu_install").replace("\\", "/")
