@@ -26,25 +26,25 @@ endif()
 
 # Libaries
 find_library(ICU_data_LIBRARY
-    NAMES icudata icudt icudtd icudt64 icudt64d
+    NAMES icudata icudt icudtd icudt64 icudt64d sicudt sicudtd sicudt64 sicudt64d
     PATHS ${CONAN_LIB_DIRS_ICU}
     NO_DEFAULT_PATH
 )
 
 find_library(ICU_uc_LIBRARY
-    NAMES icuuc icuucd icuuc64 icuuc64d
+    NAMES icuuc icuucd icuuc64 sicuuc64d sicuuc sicuucd sicuuc64 sicuuc64d
     PATHS ${CONAN_LIB_DIRS_ICU}
     NO_DEFAULT_PATH
 )
 
 find_library(ICU_i18n_LIBRARY
-    NAMES icui18n icuin icuind icuin64 icuin64d
+    NAMES icui18n icuin icuind icuin64 icuin64d sicuin sicuind sicuin64 sicuin64d
     PATHS ${CONAN_LIB_DIRS_ICU}
     NO_DEFAULT_PATH
 )
 
 find_library(ICU_io_LIBRARY
-    NAMES icuio icuiod icuio64 icuio64d
+    NAMES icuio icuiod icuio64 icuio64d sicuio sicuiod sicuio64 sicuio64d
     PATHS ${CONAN_LIB_DIRS_ICU}
     NO_DEFAULT_PATH
 )

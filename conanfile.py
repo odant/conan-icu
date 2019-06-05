@@ -29,9 +29,10 @@ class ICUConan(ConanFile):
     }
     options = {
         "dll_sign": [True, False],
-        "with_unit_tests": [True, False]
+        "with_unit_tests": [True, False],
+        "shared": [True, False]
     }
-    default_options = "dll_sign=True", "with_unit_tests=False"
+    default_options = "dll_sign=True", "with_unit_tests=False", "shared=True"
     exports_sources = "src/*", "FindICU.cmake", "msvc_mt.patch"
     no_copy_source = False
     build_policy = "missing"
@@ -40,8 +41,12 @@ class ICUConan(ConanFile):
         # Only C++11
         if self.settings.compiler.get_safe("libcxx") == "libstdc++":
             raise Exception("This package is only compatible with libstdc++11")
-        # DLL sign, only Windows
-        if self.settings.os != "Windows":
+        # MT(d) static library
+        if self.settings.os == "Windows" and self.settings.compiler == "Visual Studio":
+            if self.settings.compiler.runtime == "MT" or self.settings.compiler.runtime == "MTd":
+                self.options.shared=False
+        # DLL sign, only Windows and shared
+        if self.settings.os != "Windows" or self.options.shared == False:
             del self.options.dll_sign
 
     def build_requirements(self):
@@ -79,12 +84,21 @@ class ICUConan(ConanFile):
                 "--disable-release"
             ])
         flags.append(self.get_target_platform())
+        if self.options.shared:
+            flags.extend([
+                "--enable-shared",
+                "--disable-static",
+                "--with-data-packaging=library",
+            ])
+        else:
+            flags.extend([
+                "--disable-shared",
+                "--enable-static",
+                "--with-data-packaging=static",
+            ])
         flags.extend([
             "--with-library-bits=%s" % {"x86": "32", "x86_64": "64", "mips": "32"}.get(str(self.settings.arch)),
-            "--enable-shared",
-            "--disable-static",
             "--disable-renaming",
-            "--with-data-packaging=library",
             "--disable-samples"
         ])
         if self.settings.os == "Windows" and self.settings.arch == "x86_64":
@@ -105,7 +119,7 @@ class ICUConan(ConanFile):
             return "Linux/gcc"
         else:
             raise Exception("Unsupported target pltform!")
-    
+
     def get_build_environment(self):
         env = {}
         if self.settings.os == "Windows" and self.settings.compiler == "Visual Studio":
@@ -133,18 +147,9 @@ class ICUConan(ConanFile):
         self.copy("libicui18n.so*", dst="lib", src="icu_install/lib", keep_path=False, symlinks=True)
         self.copy("libicuio.so*", dst="lib", src="icu_install/lib", keep_path=False, symlinks=True)
         # Windows libraries
-        self.copy("icudt*.dll", dst="bin", src="src/source/lib", keep_path=False)
-        self.copy("icudt*.pdb", dst="bin", src="src/source/lib", keep_path=False)
-        self.copy("icudt*.lib", dst="lib", src="icu_install/lib", keep_path=False)
-        self.copy("icuuc*.dll", dst="bin", src="src/source/lib", keep_path=False)
-        self.copy("icuuc*.pdb", dst="bin", src="src/source/lib", keep_path=False)
-        self.copy("icuuc*.lib", dst="lib", src="icu_install/lib", keep_path=False)
-        self.copy("icuin*.dll", dst="bin", src="src/source/lib", keep_path=False)
-        self.copy("icuin*.pdb", dst="bin", src="src/source/lib", keep_path=False)
-        self.copy("icuin*.lib", dst="lib", src="icu_install/lib", keep_path=False)
-        self.copy("icuio*.dll", dst="bin", src="src/source/lib", keep_path=False)
-        self.copy("icuio*.pdb", dst="bin", src="src/source/lib", keep_path=False)
-        self.copy("icuio*.lib", dst="lib", src="icu_install/lib", keep_path=False)
+        self.copy("*.dll", dst="bin", src="src/source/lib", keep_path=False, excludes=["icutu*", "sicutu*"])
+        self.copy("*.pdb", dst="bin", src="src/source/lib", keep_path=False, excludes=["icutu*", "sicutu*"])
+        self.copy("*.lib", dst="lib", src="src/source/lib", keep_path=False, excludes=["icutu*", "sicutu*"])
         # Sign DLL
         if get_safe(self.options, "dll_sign"):
             import windows_signtool
