@@ -101,7 +101,7 @@ class ICUConan(ConanFile):
             "--with-library-bits=%s" % {"x86": "32", "x86_64": "64", "mips": "32"}.get(str(self.settings.arch)),
             "--disable-renaming",
             "--disable-samples",
-            "--srcdir=%s" % os.path.join(self.build_folder, "src/source")
+            "--srcdir=%s" % tools.unix_path(os.path.join(self.build_folder, "src/source"))
         ])
         if self.settings.os == "Windows" and self.settings.arch == "x86_64":
             flags.append("--with-library-suffix=64")
