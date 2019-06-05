@@ -77,9 +77,7 @@ class ICUConan(ConanFile):
             self.run("make install")
 
     def get_build_flags(self):
-        flags = [
-            "--srcdir=%s" % os.path.join(self.build_folder, "src/source")
-        ]
+        flags = []
         if self.settings.build_type == "Debug":
             flags.extend([
                 "--enable-debug",
@@ -102,7 +100,8 @@ class ICUConan(ConanFile):
         flags.extend([
             "--with-library-bits=%s" % {"x86": "32", "x86_64": "64", "mips": "32"}.get(str(self.settings.arch)),
             "--disable-renaming",
-            "--disable-samples"
+            "--disable-samples",
+            "--srcdir=%s" % os.path.join(self.build_folder, "src/source")
         ])
         if self.settings.os == "Windows" and self.settings.arch == "x86_64":
             flags.append("--with-library-suffix=64")
