@@ -77,7 +77,9 @@ class ICUConan(ConanFile):
             self.run("make install")
 
     def get_build_flags(self):
-        flags = []
+        flags = [
+            "--srcdir=%s" % os.path.join(self.build_folder, "src/source")
+        ]
         if self.settings.build_type == "Debug":
             flags.extend([
                 "--enable-debug",
