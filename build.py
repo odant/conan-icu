@@ -23,7 +23,7 @@ def add_dll_sign(builds):
         result.append([settings, options, env_vars, build_requires, reference])
     return result
 
-def filer_shared_MD(builds):
+def filter_shared_MD(builds):
     result = []
     for settings, options, env_vars, build_requires, reference in builds:
         if settings["compiler.runtime"] == "MD" or settings["compiler.runtime"] == "MD":
