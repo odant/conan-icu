@@ -16,7 +16,7 @@ def get_safe(options, name):
 
 class ICUConan(ConanFile):
     name = "icu"
-    version = "62.1"
+    version = "62.1+1"
     license = "http://www.unicode.org/copyright.html#License"
     description = "ICU is a mature, widely used set of C/C++ and Java libraries " \
                   "providing Unicode and Globalization support for software applications."
@@ -32,7 +32,7 @@ class ICUConan(ConanFile):
         "with_unit_tests": [True, False]
     }
     default_options = "dll_sign=True", "with_unit_tests=False"
-    exports_sources = "src/*", "FindICU.cmake"
+    exports_sources = "src/*", "FindICU.cmake", "msvc_mt.patch"
     no_copy_source = False
     build_policy = "missing"
 
@@ -54,6 +54,7 @@ class ICUConan(ConanFile):
             self.build_requires("windows_signtool/[>=1.0]@%s/stable" % self.user)
 
     def source(self):
+        tools.patch(patch_file="msvc_mt.patch")
         if not tools.os_info.is_windows:
             self.run("chmod a+x %s" % os.path.join(self.source_folder, "src/source/configure"))
 
@@ -99,7 +100,10 @@ class ICUConan(ConanFile):
 
     def get_target_platform(self):
         if self.settings.os == "Windows" and self.settings.compiler == "Visual Studio":
-            return "Cygwin/MSVC"
+            if self.settings.compiler.runtime == "MT" or self.settings.compiler.runtime == "MTd":
+                return "Cygwin/MSVC_MT"
+            else:
+                return "Cygwin/MSVC"
         elif self.settings.os == "Linux" and self.settings.compiler == "gcc":
             return "Linux/gcc"
         else:

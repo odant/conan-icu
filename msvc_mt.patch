@@ -1,0 +1,22 @@
+diff --git a/src/source/runConfigureICU b/src/source/runConfigureICU
+index abe8832..85dd884 100755
+--- a/src/source/runConfigureICU
++++ b/src/source/runConfigureICU
+@@ -269,6 +269,17 @@ case $platform in
+         DEBUG_CXXFLAGS='-Zi -MDd'
+         DEBUG_LDFLAGS='-DEBUG'
+         ;;
++    Cygwin/MSVC_MT)
++        THE_OS="Windows with Cygwin"
++        THE_COMP="Microsoft Visual C++ (static runtime)"
++        CC=cl; export CC
++        CXX=cl; export CXX
++        RELEASE_CFLAGS='-Gy -MT'
++        RELEASE_CXXFLAGS='-Gy -MT'
++        DEBUG_CFLAGS='-Zi -MTd'
++        DEBUG_CXXFLAGS='-Zi -MTd'
++        DEBUG_LDFLAGS='-DEBUG'
++        ;;
+     Cygwin/MSVC2005)
+         THE_OS="Windows with Cygwin"
+         THE_COMP="Microsoft Visual C++ 2005"
