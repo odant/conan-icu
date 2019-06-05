@@ -88,13 +88,14 @@ class ICUConan(ConanFile):
             flags.extend([
                 "--enable-shared",
                 "--disable-static",
-                "--with-data-packaging=library",
+                "--with-data-packaging=library"
             ])
         else:
             flags.extend([
                 "--disable-shared",
                 "--enable-static",
                 "--with-data-packaging=static",
+                "--disable-dyload"
             ])
         flags.extend([
             "--with-library-bits=%s" % {"x86": "32", "x86_64": "64", "mips": "32"}.get(str(self.settings.arch)),
@@ -118,7 +119,7 @@ class ICUConan(ConanFile):
         elif self.settings.os == "Linux" and self.settings.compiler == "gcc":
             return "Linux/gcc"
         else:
-            raise Exception("Unsupported target pltform!")
+            raise Exception("Unsupported target platform!")
 
     def get_build_environment(self):
         env = {}
@@ -146,6 +147,10 @@ class ICUConan(ConanFile):
         self.copy("libicuuc.so*", dst="lib", src="icu_install/lib", keep_path=False, symlinks=True)
         self.copy("libicui18n.so*", dst="lib", src="icu_install/lib", keep_path=False, symlinks=True)
         self.copy("libicuio.so*", dst="lib", src="icu_install/lib", keep_path=False, symlinks=True)
+        self.copy("libicudata.a", dst="lib", src="icu_install/lib", keep_path=False)
+        self.copy("libicuuc.a", dst="lib", src="icu_install/lib", keep_path=False)
+        self.copy("libicui18n.a", dst="lib", src="icu_install/lib", keep_path=False)
+        self.copy("libicuio.a", dst="lib", src="icu_install/lib", keep_path=False)
         # Windows libraries
         self.copy("*.dll", dst="bin", src="src/source/lib", keep_path=False, excludes=["icutu*", "sicutu*"])
         self.copy("*.pdb", dst="bin", src="src/source/lib", keep_path=False, excludes=["icutu*", "sicutu*"])
