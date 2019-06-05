@@ -1,7 +1,7 @@
 skip_tags: true
 
 environment:
-  PYTHON: C:\\Python37-x64
+  PYTHON_DIR: C:\\Python37-x64
 
   CONAN_PRINT_RUN_COMMANDS: 1
   CONAN_LOG_RUN_TO_OUTPUT: 1
@@ -41,7 +41,7 @@ environment:
       CONAN_ARCHS: x86
 
 install:
-  - set PATH=%PYTHON%;%PYTHON%\\Scripts\\;%PATH%
+  - set PATH=%PYTHON_DIR%;%PYTHON_DIR%\\Scripts\\;%PATH%
   - pip install conan
   - pip install conan_package_tools
   - conan user
