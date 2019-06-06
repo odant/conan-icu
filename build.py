@@ -23,11 +23,11 @@ def add_dll_sign(builds):
         result.append([settings, options, env_vars, build_requires, reference])
     return result
 
-def filter_static_MD(builds):
+def filter_shared_MT(builds):
     result = []
     for settings, options, env_vars, build_requires, reference in builds:
-        if settings["compiler.runtime"] == "MD" or settings["compiler.runtime"] == "MDd":
-            if options["icu:shared"] == "False":
+        if settings["compiler.runtime"] == "MT" or settings["compiler.runtime"] == "MTd":
+            if options["icu:shared"] == "True":
                 continue
         result.append([settings, options, env_vars, build_requires, reference])
     return result
@@ -52,7 +52,7 @@ if __name__ == "__main__":
     builds = builder.items
     if platform.system() == "Windows":
         builds = add_dll_sign(builds)
-        builds = filter_static_MD(builds)
+        builds = filter_shared_MT(builds)
     if platform.system() == "Linux":
         builds = filter_libcxx(builds)
     # Replace build configurations
