@@ -32,7 +32,7 @@ find_library(ICU_data_LIBRARY
 )
 
 find_library(ICU_uc_LIBRARY
-    NAMES icuuc icuucd icuuc64 sicuuc64d sicuuc sicuucd sicuuc64 sicuuc64d
+    NAMES icuuc icuucd icuuc64 icuuc64d sicuuc sicuucd sicuuc64 sicuuc64d
     PATHS ${CONAN_LIB_DIRS_ICU}
     NO_DEFAULT_PATH
 )
