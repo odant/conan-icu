@@ -71,8 +71,7 @@ class ICUConan(ConanFile):
                 self.run("echo %PATH%")
             self.run("bash -C runConfigureICU %s" % " ".join(flags))
             #self.run("bash -C runConfigureICU Cygwin/MSVC --help=recursive")
-            cpu_count = tools.cpu_count() if self.settings.compiler != "Visual Studio" else "1"
-            self.run("make -j %s" % cpu_count)
+            self.run("make -j %s" % tools.cpu_count())
             if self.options.with_unit_tests:
                 self.run("make check")
             self.run("make install")
