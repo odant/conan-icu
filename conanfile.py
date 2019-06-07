@@ -33,7 +33,7 @@ class ICUConan(ConanFile):
         "shared": [True, False]
     }
     default_options = "dll_sign=True", "with_unit_tests=False", "shared=True"
-    exports_sources = "src/*", "FindICU.cmake", "msvc_mt.patch", "remove_rebuild_rules.patch"
+    exports_sources = "src/*", "FindICU.cmake", "msvc_mt.patch", "PYTHONPATH_win.patch"
     no_copy_source = False
     build_policy = "missing"
 
@@ -57,7 +57,8 @@ class ICUConan(ConanFile):
 
     def source(self):
         tools.patch(patch_file="msvc_mt.patch")
-        tools.patch(patch_file="remove_rebuild_rules.patch")
+        if tools.os_info.is_windows:
+            tools.patch(patch_file="PYTHONPATH_win.patch")
         if not tools.os_info.is_windows:
             self.run("chmod a+x %s" % os.path.join(self.source_folder, "src/source/configure"))
 
