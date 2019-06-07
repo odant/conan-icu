@@ -14,6 +14,8 @@ env:
     CONAN_LOGIN_USERNAME: travis
     CONAN_STABLE_BRANCH_PATTERN: release/*
 
+    WITH_UNIT_TESTS: 1
+
 linux: &linux_build
   os: linux
   dist: xenial
