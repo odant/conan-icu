@@ -60,6 +60,7 @@
 #include "listformattertest.h"  // ListFormatterTest
 #include "regiontst.h"      // RegionTest
 #include "numbertest.h"     // NumberTest
+#include "erarulestest.h"   // EraRulesTest
 
 extern IntlTest *createCompactDecimalFormatTest();
 extern IntlTest *createGenderInfoTest();
@@ -70,6 +71,7 @@ extern IntlTest *createTimeUnitTest();
 extern IntlTest *createMeasureFormatTest();
 extern IntlTest *createNumberFormatSpecificationTest();
 extern IntlTest *createScientificNumberFormatterTest();
+extern IntlTest *createFormattedValueTest();
 
 
 #define TESTCLASS(id, TestClass)          \
@@ -215,6 +217,16 @@ void IntlTestFormat::runIndexedTest( int32_t index, UBool exec, const char* &nam
           break;
         TESTCLASS(50,NumberFormatDataDrivenTest);
         TESTCLASS(51,NumberTest);
+        TESTCLASS(52,EraRulesTest);
+        case 53:
+          name = "FormattedValueTest";
+          if (exec) {
+            logln("FormattedValueTest test---");
+            logln((UnicodeString)"");
+            LocalPointer<IntlTest> test(createFormattedValueTest());
+            callTest(*test, par);
+          }
+          break;
         default: name = ""; break; //needed to end loop
     }
     if (exec) {

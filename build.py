@@ -10,9 +10,10 @@ from conan.packager import ConanMultiPackager
 # Common settings
 username = "odant" if "CONAN_USERNAME" not in os.environ else None
 # Windows settings
-visual_versions = ["14", "15"] if "CONAN_VISUAL_VERSIONS" not in os.environ else None
-visual_runtimes = ["MD", "MDd"] if "CONAN_VISUAL_RUNTIMES" not in os.environ else None
+visual_versions = ["15"] if "CONAN_VISUAL_VERSIONS" not in os.environ else None
+visual_runtimes = ["MD", "MDd", "MT", "MTd"] if "CONAN_VISUAL_RUNTIMES" not in os.environ else None
 dll_sign = False if "CONAN_DISABLE_DLL_SIGN" in os.environ else True
+with_unit_tests = True if "WITH_UNIT_TESTS" in os.environ else False
 
 
 def add_dll_sign(builds):
@@ -23,6 +24,22 @@ def add_dll_sign(builds):
         result.append([settings, options, env_vars, build_requires, reference])
     return result
 
+def filter_shared_MT(builds):
+    result = []
+    for settings, options, env_vars, build_requires, reference in builds:
+        if settings["compiler.runtime"] == "MT" or settings["compiler.runtime"] == "MTd":
+            if options["icu:shared"] == "True":
+                continue
+        result.append([settings, options, env_vars, build_requires, reference])
+    return result
+
+def add_with_unit_tests(builds):
+    result = []
+    for settings, options, env_vars, build_requires, reference in builds:
+        options = deepcopy(options)
+        options["icu:with_unit_tests"] = with_unit_tests
+        result.append([settings, options, env_vars, build_requires, reference])
+    return result
 
 def filter_libcxx(builds):
     result = []
@@ -44,8 +61,10 @@ if __name__ == "__main__":
     builds = builder.items
     if platform.system() == "Windows":
         builds = add_dll_sign(builds)
+        builds = filter_shared_MT(builds)
     if platform.system() == "Linux":
         builds = filter_libcxx(builds)
+    builds = add_with_unit_tests(builds)
     # Replace build configurations
     builder.items = []
     for settings, options, env_vars, build_requires, _ in builds:

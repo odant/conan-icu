@@ -16,7 +16,7 @@ def get_safe(options, name):
 
 class ICUConan(ConanFile):
     name = "icu"
-    version = "62.1+1"
+    version = "64.2"
     license = "http://www.unicode.org/copyright.html#License"
     description = "ICU is a mature, widely used set of C/C++ and Java libraries " \
                   "providing Unicode and Globalization support for software applications."
@@ -33,7 +33,7 @@ class ICUConan(ConanFile):
         "shared": [True, False]
     }
     default_options = "dll_sign=True", "with_unit_tests=False", "shared=True"
-    exports_sources = "src/*", "FindICU.cmake", "msvc_mt.patch"
+    exports_sources = "src/*", "FindICU.cmake", "msvc_mt.patch", "PYTHONPATH_win.patch"
     no_copy_source = False
     build_policy = "missing"
 
@@ -57,6 +57,8 @@ class ICUConan(ConanFile):
 
     def source(self):
         tools.patch(patch_file="msvc_mt.patch")
+        if tools.os_info.is_windows:
+            tools.patch(patch_file="PYTHONPATH_win.patch")
         if not tools.os_info.is_windows:
             self.run("chmod a+x %s" % os.path.join(self.source_folder, "src/source/configure"))
 
@@ -70,8 +72,7 @@ class ICUConan(ConanFile):
                 self.run("echo %PATH%")
             self.run("bash -C runConfigureICU %s" % " ".join(flags))
             #self.run("bash -C runConfigureICU Cygwin/MSVC --help=recursive")
-            cpu_count = tools.cpu_count() if self.settings.compiler != "Visual Studio" else "1"
-            self.run("make -j %s" % cpu_count)
+            self.run("make -j %s" % tools.cpu_count())
             if self.options.with_unit_tests:
                 self.run("make check")
             self.run("make install")
@@ -100,7 +101,7 @@ class ICUConan(ConanFile):
         flags.extend([
             "--with-library-bits=%s" % {"x86": "32", "x86_64": "64", "mips": "32"}.get(str(self.settings.arch)),
             "--disable-renaming",
-            "--disable-samples"
+            "--disable-samples",
         ])
         if self.settings.os == "Windows" and self.settings.arch == "x86_64":
             flags.append("--with-library-suffix=64")
@@ -173,6 +174,8 @@ class ICUConan(ConanFile):
 
     def package_info(self):
         self.cpp_info.defines = ["U_DISABLE_RENAMING=1"]
+        if not self.options.shared:
+            self.cpp_info.defines.append("U_STATIC_IMPLEMENTATION=1")
         if self.settings.os == "Windows":
             self.cpp_info.libs = tools.collect_libs(self)
         else:
