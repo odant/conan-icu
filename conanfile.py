@@ -25,7 +25,7 @@ class ICUConan(ConanFile):
         "os": ["Windows", "Linux"],
         "compiler": ["Visual Studio", "gcc"],
         "build_type": ["Debug", "Release"],
-        "arch": ["x86", "x86_64", "mips"]
+        "arch": ["x86", "x86_64", "mips", "armv7"]
     }
     options = {
         "dll_sign": [True, False],
@@ -101,7 +101,7 @@ class ICUConan(ConanFile):
                 "--disable-dyload"
             ])
         flags.extend([
-            "--with-library-bits=%s" % {"x86": "32", "x86_64": "64", "mips": "32"}.get(str(self.settings.arch)),
+            "--with-library-bits=%s" % {"x86": "32", "x86_64": "64", "mips": "32", "armv7": "32"}.get(str(self.settings.arch)),
             "--disable-renaming",
             "--disable-samples",
         ])
