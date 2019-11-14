@@ -1,0 +1,13 @@
+--- a/src/source/config/mh-linux
++++ b/src/source/config/mh-linux
+@@ -23,7 +23,9 @@ LD_RPATH= -Wl,-zorigin,-rpath,'$$'ORIGIN
+ LD_RPATH_PRE = -Wl,-rpath,
+ 
+ ## These are the library specific LDFLAGS
+-LDFLAGSICUDT=-nodefaultlibs -nostdlib
++#LDFLAGSICUDT=-nodefaultlibs -nostdlib
++# Debian change: linking icudata as data only causes too many problems.
++LDFLAGSICUDT=
+ 
+ ## Compiler switch to embed a library name
+ # The initial tab in the next line is to prevent icu-config from reading it.
