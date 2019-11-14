@@ -10,7 +10,7 @@ from conan.packager import ConanMultiPackager
 # Common settings
 username = "odant" if "CONAN_USERNAME" not in os.environ else None
 # Windows settings
-visual_versions = ["15"] if "CONAN_VISUAL_VERSIONS" not in os.environ else None
+visual_versions = ["15", "16"] if "CONAN_VISUAL_VERSIONS" not in os.environ else None
 visual_runtimes = ["MD", "MDd", "MT", "MTd"] if "CONAN_VISUAL_RUNTIMES" not in os.environ else None
 dll_sign = False if "CONAN_DISABLE_DLL_SIGN" in os.environ else True
 with_unit_tests = True if "WITH_UNIT_TESTS" in os.environ else False
