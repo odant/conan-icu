@@ -79,7 +79,7 @@
  *  @stable ICU 4.0
  */
 #ifndef U_ICU_VERSION_BUILDLEVEL_NUM
-#define U_ICU_VERSION_BUILDLEVEL_NUM 0
+#define U_ICU_VERSION_BUILDLEVEL_NUM 1
 #endif
 
 /** Glued version suffix for renamers
