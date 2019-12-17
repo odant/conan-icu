@@ -53,7 +53,7 @@ class ICUConan(ConanFile):
         if self.settings.os == "Windows" and self.settings.compiler == "Visual Studio":
             self.build_requires("cygwin_installer/2.9.0@bincrafters/stable")
         if get_safe(self.options, "dll_sign"):
-            self.build_requires("windows_signtool/[>=1.0]@%s/stable" % self.user)
+            self.build_requires("windows_signtool/[>=1.1]@%s/stable" % self.user)
 
     def source(self):
         tools.patch(patch_file="msvc_mt.patch")
