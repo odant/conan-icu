@@ -16,7 +16,7 @@ def get_safe(options, name):
 
 class ICUConan(ConanFile):
     name = "icu"
-    version = "64.2+3"
+    version = "64.2+4"
     license = "http://www.unicode.org/copyright.html#License"
     description = "ICU is a mature, widely used set of C/C++ and Java libraries " \
                   "providing Unicode and Globalization support for software applications."
