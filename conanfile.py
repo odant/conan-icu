@@ -105,8 +105,6 @@ class ICUConan(ConanFile):
             "--disable-renaming",
             "--disable-samples",
         ])
-        if self.settings.os == "Windows" and self.settings.arch == "x86_64":
-            flags.append("--with-library-suffix=64")
         if self.options.with_unit_tests:
             flags.append("--enable-tests")
         else:
