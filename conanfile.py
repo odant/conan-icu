@@ -1,5 +1,5 @@
 # ICU Conan package
-# Dmitriy Vetutnev, ODANT 2018
+# Dmitriy Vetutnev, ODANT 2018-2020
 
 
 from conans import ConanFile, tools
