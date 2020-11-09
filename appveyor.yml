@@ -1,7 +1,7 @@
 skip_tags: true
 
 environment:
-  PYTHON_DIR: C:\\Python37-x64
+  PYTHON: C:\\Python37-x64
 
   CONAN_PRINT_RUN_COMMANDS: 1
   CONAN_LOG_RUN_TO_OUTPUT: 1
@@ -17,6 +17,10 @@ environment:
   CONAN_LOGIN_USERNAME: appveyor
   CONAN_STABLE_BRANCH_PATTERN: release/*
 
+#  CONAN_OPTIONS:
+#  CONAN_SHARED_OPTION_NAME:
+  CONAN_PURE_C: False
+
   matrix:
 
 # Visual Studio 2017
@@ -25,48 +29,56 @@ environment:
       CONAN_VISUAL_RUNTIMES: MD
       CONAN_BUILD_TYPES: Release
       CONAN_ARCHS: x86_64
+      CONAN_OPTIONS: icu:with_unit_tests=True,icu:dll_sign=False,icu:shared=True
 
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       CONAN_VISUAL_VERSIONS: 15
       CONAN_VISUAL_RUNTIMES: MDd
       CONAN_BUILD_TYPES: Debug
       CONAN_ARCHS: x86_64
+      CONAN_OPTIONS: icu:with_unit_tests=True,icu:dll_sign=False,icu:shared=True
 
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       CONAN_VISUAL_VERSIONS: 15
       CONAN_VISUAL_RUNTIMES: MT
       CONAN_BUILD_TYPES: Release
       CONAN_ARCHS: x86_64
+      CONAN_OPTIONS: icu:with_unit_tests=True,icu:dll_sign=False,icu:shared=False
 
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       CONAN_VISUAL_VERSIONS: 15
       CONAN_VISUAL_RUNTIMES: MTd
       CONAN_BUILD_TYPES: Debug
       CONAN_ARCHS: x86_64
+      CONAN_OPTIONS: icu:with_unit_tests=True,icu:dll_sign=False,icu:shared=False
 
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       CONAN_VISUAL_VERSIONS: 15
       CONAN_VISUAL_RUNTIMES: MD
       CONAN_BUILD_TYPES: Release
       CONAN_ARCHS: x86
+      CONAN_OPTIONS: icu:with_unit_tests=True,icu:dll_sign=False,icu:shared=True
 
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       CONAN_VISUAL_VERSIONS: 15
       CONAN_VISUAL_RUNTIMES: MDd
       CONAN_BUILD_TYPES: Debug
       CONAN_ARCHS: x86
+      CONAN_OPTIONS: icu:with_unit_tests=True,icu:dll_sign=False,icu:shared=True
 
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       CONAN_VISUAL_VERSIONS: 15
       CONAN_VISUAL_RUNTIMES: MT
       CONAN_BUILD_TYPES: Release
       CONAN_ARCHS: x86
+      CONAN_OPTIONS: icu:with_unit_tests=True,icu:dll_sign=False,icu:shared=False
 
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       CONAN_VISUAL_VERSIONS: 15
       CONAN_VISUAL_RUNTIMES: MTd
       CONAN_BUILD_TYPES: Debug
       CONAN_ARCHS: x86
+      CONAN_OPTIONS: icu:with_unit_tests=True,icu:dll_sign=False,icu:shared=False
 
 # Visual Studio 2019
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
@@ -74,48 +86,56 @@ environment:
       CONAN_VISUAL_RUNTIMES: MD
       CONAN_BUILD_TYPES: Release
       CONAN_ARCHS: x86_64
+      CONAN_OPTIONS: icu:with_unit_tests=True,icu:dll_sign=False,icu:shared=True
 
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       CONAN_VISUAL_VERSIONS: 16
       CONAN_VISUAL_RUNTIMES: MDd
       CONAN_BUILD_TYPES: Debug
       CONAN_ARCHS: x86_64
+      CONAN_OPTIONS: icu:with_unit_tests=True,icu:dll_sign=False,icu:shared=True
 
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       CONAN_VISUAL_VERSIONS: 16
       CONAN_VISUAL_RUNTIMES: MT
       CONAN_BUILD_TYPES: Release
       CONAN_ARCHS: x86_64
+      CONAN_OPTIONS: icu:with_unit_tests=True,icu:dll_sign=False,icu:shared=False
 
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       CONAN_VISUAL_VERSIONS: 16
       CONAN_VISUAL_RUNTIMES: MTd
       CONAN_BUILD_TYPES: Debug
       CONAN_ARCHS: x86_64
+      CONAN_OPTIONS: icu:with_unit_tests=True,icu:dll_sign=False,icu:shared=False
 
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       CONAN_VISUAL_VERSIONS: 16
       CONAN_VISUAL_RUNTIMES: MD
       CONAN_BUILD_TYPES: Release
       CONAN_ARCHS: x86
+      CONAN_OPTIONS: icu:with_unit_tests=True,icu:dll_sign=False,icu:shared=True
 
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       CONAN_VISUAL_VERSIONS: 16
       CONAN_VISUAL_RUNTIMES: MDd
       CONAN_BUILD_TYPES: Debug
       CONAN_ARCHS: x86
+      CONAN_OPTIONS: icu:with_unit_tests=True,icu:dll_sign=False,icu:shared=True
 
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       CONAN_VISUAL_VERSIONS: 16
       CONAN_VISUAL_RUNTIMES: MT
       CONAN_BUILD_TYPES: Release
       CONAN_ARCHS: x86
+      CONAN_OPTIONS: icu:with_unit_tests=True,icu:dll_sign=False,icu:shared=False
 
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       CONAN_VISUAL_VERSIONS: 16
       CONAN_VISUAL_RUNTIMES: MTd
       CONAN_BUILD_TYPES: Debug
       CONAN_ARCHS: x86
+      CONAN_OPTIONS: icu:with_unit_tests=True,icu:dll_sign=False,icu:shared=False
 
 install:
   - set PATH=%PYTHON_DIR%;%PYTHON_DIR%\\Scripts\\;%PATH%

@@ -1,77 +1,24 @@
-# ICU Conan package
-# Dmitriy Vetutnev, ODANT, 2018-2020
+# Build Conan package
+# Dmitriy Vetutnev, ODANT, 2020
 
 
-import platform, os
-from copy import deepcopy
 from conan.packager import ConanMultiPackager
+import os
 
 
-# Common settings
-username = "odant" if "CONAN_USERNAME" not in os.environ else None
-# Windows settings
-visual_versions = ["15", "16"] if "CONAN_VISUAL_VERSIONS" not in os.environ else None
-visual_runtimes = ["MD", "MDd", "MT", "MTd"] if "CONAN_VISUAL_RUNTIMES" not in os.environ else None
-dll_sign = False if "CONAN_DISABLE_DLL_SIGN" in os.environ else True
-with_unit_tests = True if "WITH_UNIT_TESTS" in os.environ else False
-
-
-def add_dll_sign(builds):
-    result = []
-    for settings, options, env_vars, build_requires, reference in builds:
-        options = deepcopy(options)
-        options["icu:dll_sign"] = dll_sign
-        result.append([settings, options, env_vars, build_requires, reference])
-    return result
-
-def filter_shared_MT(builds):
-    result = []
-    for settings, options, env_vars, build_requires, reference in builds:
-        if settings["compiler.runtime"] == "MT" or settings["compiler.runtime"] == "MTd":
-            if options["icu:shared"] == "True":
-                continue
-        result.append([settings, options, env_vars, build_requires, reference])
-    return result
-
-def add_with_unit_tests(builds):
-    result = []
-    for settings, options, env_vars, build_requires, reference in builds:
-        options = deepcopy(options)
-        options["icu:with_unit_tests"] = with_unit_tests
-        result.append([settings, options, env_vars, build_requires, reference])
-    return result
-
-def filter_libcxx(builds):
-    result = []
-    for settings, options, env_vars, build_requires, reference in builds:
-        if settings["compiler.libcxx"] == "libstdc++11":
-            result.append([settings, options, env_vars, build_requires, reference])
-    return result
+env_pure_c = os.getenv("CONAN_PURE_C", True)
+pure_c = True if str(env_pure_c).lower() != "false" else False
 
 
 if __name__ == "__main__":
     builder = ConanMultiPackager(
-        username=username,
-        visual_versions=visual_versions,
-        visual_runtimes=visual_runtimes,
         exclude_vcvars_precommand=True
     )
-    builder.add_common_builds(pure_c=False)
-    # Adjusting build configurations
-    builds = builder.items
-    if platform.system() == "Windows":
-        builds = add_dll_sign(builds)
-        builds = filter_shared_MT(builds)
-    if platform.system() == "Linux":
-        builds = filter_libcxx(builds)
-    builds = add_with_unit_tests(builds)
-    # Replace build configurations
-    builder.items = []
-    for settings, options, env_vars, build_requires, _ in builds:
-        builder.add(
-            settings=settings,
-            options=options,
-            env_vars=env_vars,
-            build_requires=build_requires
-        )
+    builder.add_common_builds(
+        pure_c=pure_c
+    )
+    builder.remove_build_if(
+        lambda build: build.settings.get("compiler.libcxx") == "libstdc++"
+    )
     builder.run()
+
