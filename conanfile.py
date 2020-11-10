@@ -3,15 +3,7 @@
 
 
 from conans import ConanFile, tools
-from conans.errors import ConanException
 import os, glob
-
-
-def get_safe(options, name):
-    try:
-        return getattr(options, name, None)
-    except ConanException:
-        return None
 
 
 class ICUConan(ConanFile):
@@ -52,7 +44,7 @@ class ICUConan(ConanFile):
     def build_requirements(self):
         if self.settings.os == "Windows" and self.settings.compiler == "Visual Studio":
             self.build_requires("cygwin_installer/2.9.0@bincrafters/stable")
-        if get_safe(self.options, "dll_sign"):
+        self.options.get_safe("dll_sign"):
             self.build_requires("windows_signtool/[>=1.1]@%s/stable" % self.user)
 
     def source(self):
@@ -60,7 +52,7 @@ class ICUConan(ConanFile):
         if tools.os_info.is_windows:
             tools.patch(patch_file="PYTHONPATH_win.patch")
         if tools.os_info.is_linux:
-            tools.patch(patch_file="icudata-stdlibs.patch")            
+            tools.patch(patch_file="icudata-stdlibs.patch")
         if not tools.os_info.is_windows:
             self.run("chmod a+x %s" % os.path.join(self.source_folder, "src/source/configure"))
 
@@ -158,7 +150,7 @@ class ICUConan(ConanFile):
         self.copy("*.pdb", dst="bin", src="src/source/lib", keep_path=False, excludes=["icutu*", "sicutu*"])
         self.copy("*.lib", dst="lib", src="src/source/lib", keep_path=False, excludes=["icutu*", "sicutu*"])
         # Sign DLL
-        if get_safe(self.options, "dll_sign"):
+        if self.options.get_safe("dll_sign"):
             import windows_signtool
             pattern = os.path.join(self.package_folder, "bin", "*.dll")
             for fpath in glob.glob(pattern):
