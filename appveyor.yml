@@ -1,7 +1,7 @@
 skip_tags: true
 
 environment:
-  PYTHON: C:\\Python37-x64
+  PYTHON_DIR: C:\\Python38-x64
 
   CONAN_PRINT_RUN_COMMANDS: 1
   CONAN_LOG_RUN_TO_OUTPUT: 1

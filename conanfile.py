@@ -16,7 +16,7 @@ def get_safe(options, name):
 
 class ICUConan(ConanFile):
     name = "icu"
-    version = "64.2+4"
+    version = "64.2+5"
     license = "http://www.unicode.org/copyright.html#License"
     description = "ICU is a mature, widely used set of C/C++ and Java libraries " \
                   "providing Unicode and Globalization support for software applications."
@@ -136,6 +136,7 @@ class ICUConan(ConanFile):
                 os.environ["PATH"] = os.pathsep.join(path_lst)
             else:
                 env = tools.vcvars_dict(self.settings, filter_known_paths=False, force=True)
+        env["PYTHON"] = "python"
         return env
 
     def package(self):
