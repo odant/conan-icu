@@ -14,12 +14,17 @@ env:
     CONAN_LOGIN_USERNAME: travis
     CONAN_STABLE_BRANCH_PATTERN: release/*
 
+#    CONAN_OPTIONS:
+#    CONAN_SHARED_OPTION_NAME:
+    CONAN_PURE_C: False
+
+    CONAN_USE_DOCKER: 1
+
 linux: &linux_build
   os: linux
   dist: bionic
-  sudo: false
   language: python
-  python: 3.7
+  python: 3.8
   services:
     - docker
 
@@ -27,45 +32,200 @@ matrix:
   include:
     - <<: *linux_build
       env:
-       CONAN_GCC_VERSIONS: 6
-       CONAN_DOCKER_IMAGE: conanio/gcc6
+       CONAN_GCC_VERSIONS: 8
+       CONAN_DOCKER_IMAGE: conanio/gcc8
+       CONAN_BUILD_TYPES: Release
        CONAN_ARCHS: x86_64
-
-    - <<: *linux_build
-      env:
-       CONAN_GCC_VERSIONS: 6
-       CONAN_DOCKER_IMAGE: conanio/gcc6
-       CONAN_ARCHS: x86
-
-    - <<: *linux_build
-      env:
-       CONAN_GCC_VERSIONS: 7
-       CONAN_DOCKER_IMAGE: conanio/gcc7
-       CONAN_ARCHS: x86_64
-
-    - <<: *linux_build
-      env:
-       CONAN_GCC_VERSIONS: 7
-       CONAN_DOCKER_IMAGE: conanio/gcc7
-       CONAN_ARCHS: x86
+       CONAN_OPTIONS: icu:with_unit_tests=True,icu:shared=True
 
     - <<: *linux_build
       env:
        CONAN_GCC_VERSIONS: 8
        CONAN_DOCKER_IMAGE: conanio/gcc8
+       CONAN_BUILD_TYPES: Debug
        CONAN_ARCHS: x86_64
+       CONAN_OPTIONS: icu:with_unit_tests=True,icu:shared=True
 
     - <<: *linux_build
       env:
        CONAN_GCC_VERSIONS: 8
        CONAN_DOCKER_IMAGE: conanio/gcc8
+       CONAN_BUILD_TYPES: Release
+       CONAN_ARCHS: x86_64
+       CONAN_OPTIONS: icu:with_unit_tests=True,icu:shared=False
+
+    - <<: *linux_build
+      env:
+       CONAN_GCC_VERSIONS: 8
+       CONAN_DOCKER_IMAGE: conanio/gcc8
+       CONAN_BUILD_TYPES: Debug
+       CONAN_ARCHS: x86_64
+       CONAN_OPTIONS: icu:with_unit_tests=True,icu:shared=False
+
+    - <<: *linux_build
+      env:
+       CONAN_GCC_VERSIONS: 8
+       CONAN_DOCKER_IMAGE: conanio/gcc8
+       CONAN_BUILD_TYPES: Release
        CONAN_ARCHS: x86
+       CONAN_OPTIONS: icu:with_unit_tests=True,icu:shared=True
+
+    - <<: *linux_build
+      env:
+       CONAN_GCC_VERSIONS: 8
+       CONAN_DOCKER_IMAGE: conanio/gcc8
+       CONAN_BUILD_TYPES: Debug
+       CONAN_ARCHS: x86
+       CONAN_OPTIONS: icu:with_unit_tests=True,icu:shared=True
+
+    - <<: *linux_build
+      env:
+       CONAN_GCC_VERSIONS: 8
+       CONAN_DOCKER_IMAGE: conanio/gcc8
+       CONAN_BUILD_TYPES: Release
+       CONAN_ARCHS: x86
+       CONAN_OPTIONS: icu:with_unit_tests=True,icu:shared=False
+
+    - <<: *linux_build
+      env:
+       CONAN_GCC_VERSIONS: 8
+       CONAN_DOCKER_IMAGE: conanio/gcc8
+       CONAN_BUILD_TYPES: Debug
+       CONAN_ARCHS: x86
+       CONAN_OPTIONS: icu:with_unit_tests=True,icu:shared=False
+
+    - <<: *linux_build
+      env:
+       CONAN_GCC_VERSIONS: 9
+       CONAN_DOCKER_IMAGE: conanio/gcc9
+       CONAN_BUILD_TYPES: Release
+       CONAN_ARCHS: x86_64
+       CONAN_OPTIONS: icu:with_unit_tests=True,icu:shared=True
+
+    - <<: *linux_build
+      env:
+       CONAN_GCC_VERSIONS: 9
+       CONAN_DOCKER_IMAGE: conanio/gcc9
+       CONAN_BUILD_TYPES: Debug
+       CONAN_ARCHS: x86_64
+       CONAN_OPTIONS: icu:with_unit_tests=True,icu:shared=True
+
+    - <<: *linux_build
+      env:
+       CONAN_GCC_VERSIONS: 9
+       CONAN_DOCKER_IMAGE: conanio/gcc9
+       CONAN_BUILD_TYPES: Release
+       CONAN_ARCHS: x86_64
+       CONAN_OPTIONS: icu:with_unit_tests=True,icu:shared=False
+
+    - <<: *linux_build
+      env:
+       CONAN_GCC_VERSIONS: 9
+       CONAN_DOCKER_IMAGE: conanio/gcc9
+       CONAN_BUILD_TYPES: Debug
+       CONAN_ARCHS: x86_64
+       CONAN_OPTIONS: icu:with_unit_tests=True,icu:shared=False
+
+    - <<: *linux_build
+      env:
+       CONAN_GCC_VERSIONS: 9
+       CONAN_DOCKER_IMAGE: conanio/gcc9
+       CONAN_BUILD_TYPES: Release
+       CONAN_ARCHS: x86
+       CONAN_OPTIONS: icu:with_unit_tests=True,icu:shared=True
+
+    - <<: *linux_build
+      env:
+       CONAN_GCC_VERSIONS: 9
+       CONAN_DOCKER_IMAGE: conanio/gcc9
+       CONAN_BUILD_TYPES: Debug
+       CONAN_ARCHS: x86
+       CONAN_OPTIONS: icu:with_unit_tests=True,icu:shared=True
+
+    - <<: *linux_build
+      env:
+       CONAN_GCC_VERSIONS: 9
+       CONAN_DOCKER_IMAGE: conanio/gcc9
+       CONAN_BUILD_TYPES: Release
+       CONAN_ARCHS: x86
+       CONAN_OPTIONS: icu:with_unit_tests=True,icu:shared=False
+
+    - <<: *linux_build
+      env:
+       CONAN_GCC_VERSIONS: 9
+       CONAN_DOCKER_IMAGE: conanio/gcc9
+       CONAN_BUILD_TYPES: Debug
+       CONAN_ARCHS: x86
+       CONAN_OPTIONS: icu:with_unit_tests=True,icu:shared=False
+
+    - <<: *linux_build
+      env:
+       CONAN_CLANG_VERSIONS: 9
+       CONAN_DOCKER_IMAGE: conanio/clang9
+       CONAN_BUILD_TYPES: Release
+       CONAN_ARCHS: x86_64
+       CONAN_OPTIONS: icu:with_unit_tests=True,icu:shared=True
+
+    - <<: *linux_build
+      env:
+       CONAN_CLANG_VERSIONS: 9
+       CONAN_DOCKER_IMAGE: conanio/clang9
+       CONAN_BUILD_TYPES: Debug
+       CONAN_ARCHS: x86_64
+       CONAN_OPTIONS: icu:with_unit_tests=True,icu:shared=True
+
+    - <<: *linux_build
+      env:
+       CONAN_CLANG_VERSIONS: 9
+       CONAN_DOCKER_IMAGE: conanio/clang9
+       CONAN_BUILD_TYPES: Release
+       CONAN_ARCHS: x86_64
+       CONAN_OPTIONS: icu:with_unit_tests=True,icu:shared=False
+
+    - <<: *linux_build
+      env:
+       CONAN_CLANG_VERSIONS: 9
+       CONAN_DOCKER_IMAGE: conanio/clang9
+       CONAN_BUILD_TYPES: Debug
+       CONAN_ARCHS: x86_64
+       CONAN_OPTIONS: icu:with_unit_tests=True,icu:shared=False
+
+    - <<: *linux_build
+      env:
+       CONAN_CLANG_VERSIONS: 9
+       CONAN_DOCKER_IMAGE: conanio/clang9-x86
+       CONAN_BUILD_TYPES: Release
+       CONAN_ARCHS: x86
+       CONAN_OPTIONS: icu:with_unit_tests=True,icu:shared=True
+
+    - <<: *linux_build
+      env:
+       CONAN_CLANG_VERSIONS: 9
+       CONAN_DOCKER_IMAGE: conanio/clang9-x86
+       CONAN_BUILD_TYPES: Debug
+       CONAN_ARCHS: x86
+       CONAN_OPTIONS: icu:with_unit_tests=True,icu:shared=True
+
+    - <<: *linux_build
+      env:
+       CONAN_CLANG_VERSIONS: 9
+       CONAN_DOCKER_IMAGE: conanio/clang9-x86
+       CONAN_BUILD_TYPES: Release
+       CONAN_ARCHS: x86
+       CONAN_OPTIONS: icu:with_unit_tests=True,icu:shared=False
+
+    - <<: *linux_build
+      env:
+       CONAN_CLANG_VERSIONS: 9
+       CONAN_DOCKER_IMAGE: conanio/clang9-x86
+       CONAN_BUILD_TYPES: Debug
+       CONAN_ARCHS: x86
+       CONAN_OPTIONS: icu:with_unit_tests=True,icu:shared=False
 
 install:
   - pip install conan
   - pip install conan_package_tools
   - conan user
-  - ldd --version
 
 script:
   - python build.py
