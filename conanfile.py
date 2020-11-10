@@ -128,7 +128,6 @@ class ICUConan(ConanFile):
                 os.environ["PATH"] = os.pathsep.join(path_lst)
             else:
                 env = tools.vcvars_dict(self.settings, filter_known_paths=False, force=True)
-        env["PYTHON"] = "python"
         return env
 
     def package(self):
