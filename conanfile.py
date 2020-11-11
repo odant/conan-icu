@@ -64,6 +64,8 @@ class ICUConan(ConanFile):
         with tools.chdir("src/source"), tools.environment_append(build_env):
             if self.settings.os == "Windows":
                 self.run("echo %PATH%")
+            if self.settings.os == "Linux":
+                self.run("env")
             self.run("bash -C runConfigureICU %s" % " ".join(flags))
             #self.run("bash -C runConfigureICU Cygwin/MSVC --help=recursive")
             self.run("make -j %s" % tools.cpu_count())
