@@ -7,11 +7,11 @@ index a19723b..bc1b0ae 100644
      status=U_ZERO_ERROR;
      coll = ures_getByKey(teRes, "collations", coll, &status);
 +    if(U_FAILURE(status)){
-+        log_err("ODADebug: ERROR: ures_getByKey(teRes, \"collations\", coll, &status)");
++        log_err("ODADebug: ERROR: ures_getByKey(teRes, \"collations\", coll, &status) with %s", myErrorName(status));
 +    }
      coll = ures_getByKey(coll, "standard", coll, &status);
 +    if(U_FAILURE(status)){
-+        log_err("ODADebug: ERROR: ures_getByKey(coll, \"standard\", coll, &status)");
++        log_err("ODADebug: ERROR: ures_getByKey(coll, \"standard\", coll, &status) with %s", myErrorName(status));
 +    }
      if(U_SUCCESS(status)){
          CONFIRM_ErrorCode(status, U_ZERO_ERROR);
