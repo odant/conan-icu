@@ -1,17 +1,26 @@
 diff --git a/src/source/test/cintltst/creststn.c b/src/source/test/cintltst/creststn.c
-index a19723b..bc1b0ae 100644
+index a19723b..fadcd69 100644
 --- a/src/source/test/cintltst/creststn.c
 +++ b/src/source/test/cintltst/creststn.c
+@@ -942,7 +942,7 @@ static void TestBinaryCollationData(){
+         log_data_err("Could not load testdata.dat %s \n",myErrorName(status));
+         return;
+     }
+-
++    printf("ODADebug: testdatapath = %s\n", testdatapath);
+ 
+     teRes=ures_open(testdatapath, locale, &status);
+     if(U_FAILURE(status)){
 @@ -951,7 +951,13 @@ static void TestBinaryCollationData(){
      }
      status=U_ZERO_ERROR;
      coll = ures_getByKey(teRes, "collations", coll, &status);
 +    if(U_FAILURE(status)){
-+        log_err("ODADebug: ERROR: ures_getByKey(teRes, \"collations\", coll, &status) with %s", myErrorName(status));
++        log_err("ODADebug: ERROR: ures_getByKey(teRes, \"collations\", coll, &status) with %s\n", myErrorName(status));
 +    }
      coll = ures_getByKey(coll, "standard", coll, &status);
 +    if(U_FAILURE(status)){
-+        log_err("ODADebug: ERROR: ures_getByKey(coll, \"standard\", coll, &status) with %s", myErrorName(status));
++        log_err("ODADebug: ERROR: ures_getByKey(coll, \"standard\", coll, &status) with %s\n", myErrorName(status));
 +    }
      if(U_SUCCESS(status)){
          CONFIRM_ErrorCode(status, U_ZERO_ERROR);
