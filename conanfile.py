@@ -25,7 +25,7 @@ class ICUConan(ConanFile):
         "shared": [True, False]
     }
     default_options = "dll_sign=True", "with_unit_tests=False", "shared=True"
-    exports_sources = "src/*", "FindICU.cmake", "msvc_mt.patch", "PYTHONPATH_win.patch", "icudata-stdlibs.patch"
+    exports_sources = "src/*", "FindICU.cmake", "msvc_mt.patch", "PYTHONPATH_win.patch", "icudata-stdlibs.patch", "debug_test_TestBinaryCollationData.patch"
     no_copy_source = False
     build_policy = "missing"
 
@@ -48,6 +48,7 @@ class ICUConan(ConanFile):
             self.build_requires("windows_signtool/[>=1.1]@%s/stable" % self.user)
 
     def source(self):
+        tools.patch(patch_file="debug_test_TestBinaryCollationData.patch")
         tools.patch(patch_file="msvc_mt.patch")
         if tools.os_info.is_windows:
             tools.patch(patch_file="PYTHONPATH_win.patch")
