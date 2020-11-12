@@ -1,17 +1,27 @@
 diff --git a/src/source/test/cintltst/creststn.c b/src/source/test/cintltst/creststn.c
-index a19723b..fadcd69 100644
+index a19723b..3ff0250 100644
 --- a/src/source/test/cintltst/creststn.c
 +++ b/src/source/test/cintltst/creststn.c
-@@ -942,7 +942,7 @@ static void TestBinaryCollationData(){
+@@ -937,11 +937,18 @@ static void TestBinaryCollationData(){
+     log_verbose("Testing binary collation data resource......\n");
+ 
+     testdatapath=loadTestData(&status);
++    printf("ODADebug: testdatapath = %s\n", testdatapath);
+     if(U_FAILURE(status))
+     {
          log_data_err("Could not load testdata.dat %s \n",myErrorName(status));
          return;
      }
--
-+    printf("ODADebug: testdatapath = %s\n", testdatapath);
++    if (status == U_USING_FALLBACK_WARNING) {
++        printf("ODADebug: status = %s\n", "U_USING_FALLBACK_WARNING");
++    }
++    if (status == U_USING_DEFAULT_WARNING) {
++        printf("ODADebug: status = %s\n", "U_USING_DEFAULT_WARNING");
++    }
+ 
  
      teRes=ures_open(testdatapath, locale, &status);
-     if(U_FAILURE(status)){
-@@ -951,7 +951,13 @@ static void TestBinaryCollationData(){
+@@ -951,7 +958,13 @@ static void TestBinaryCollationData(){
      }
      status=U_ZERO_ERROR;
      coll = ures_getByKey(teRes, "collations", coll, &status);
@@ -25,3 +35,11 @@ index a19723b..fadcd69 100644
      if(U_SUCCESS(status)){
          CONFIRM_ErrorCode(status, U_ZERO_ERROR);
          CONFIRM_INT_EQ(ures_getType(coll), URES_TABLE);
+@@ -974,6 +987,7 @@ static void TestBinaryCollationData(){
+         log_err("ERROR: ures_getByKey(locale(te), collations) failed\n");
+         return;
+     }
++    printf("ODADebug: locale = %s\n", locale);
+     ures_close(binColl);
+     ures_close(coll);
+     ures_close(teRes);
