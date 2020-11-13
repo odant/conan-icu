@@ -102,9 +102,15 @@ class ICUConan(ConanFile):
             "--disable-samples",
         ])
         if self.options.with_unit_tests:
-            flags.append("--enable-tests")
+            flags.extend([
+                "--enable-tests",
+                "--enable-samples"
+            ])
         else:
-            flags.append("--disable-tests")
+            flags.extend([
+                "--disable-tests",
+                "--disable-samples"
+            ])
         return flags
 
     def get_target_platform(self):
