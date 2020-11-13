@@ -1,8 +1,8 @@
 diff --git a/src/source/test/cintltst/creststn.c b/src/source/test/cintltst/creststn.c
-index a19723b..2859277 100644
+index a19723b..39a7f21 100644
 --- a/src/source/test/cintltst/creststn.c
 +++ b/src/source/test/cintltst/creststn.c
-@@ -937,21 +937,49 @@ static void TestBinaryCollationData(){
+@@ -937,21 +937,51 @@ static void TestBinaryCollationData(){
      log_verbose("Testing binary collation data resource......\n");
  
      testdatapath=loadTestData(&status);
@@ -39,6 +39,8 @@ index a19723b..2859277 100644
 +        case URES_INT_VECTOR: printf("ODADebug: teResType = %s\n", "URES_INT_VECTOR"); break;
 +        default: printf("ODADebug: teResType = %s\n", "Unkhow");
 +    }
++    const int32_t teResSize = ures_getSize(teRes);
++    printf("ODADebug: teResSize = %d\n", teResSize);
 +
      status=U_ZERO_ERROR;
      coll = ures_getByKey(teRes, "collations", coll, &status);
@@ -52,7 +54,7 @@ index a19723b..2859277 100644
      if(U_SUCCESS(status)){
          CONFIRM_ErrorCode(status, U_ZERO_ERROR);
          CONFIRM_INT_EQ(ures_getType(coll), URES_TABLE);
-@@ -974,6 +1002,7 @@ static void TestBinaryCollationData(){
+@@ -974,6 +1004,7 @@ static void TestBinaryCollationData(){
          log_err("ERROR: ures_getByKey(locale(te), collations) failed\n");
          return;
      }
