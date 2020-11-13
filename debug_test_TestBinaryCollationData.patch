@@ -1,8 +1,8 @@
 diff --git a/src/source/test/cintltst/creststn.c b/src/source/test/cintltst/creststn.c
-index a19723b..3ff0250 100644
+index a19723b..2859277 100644
 --- a/src/source/test/cintltst/creststn.c
 +++ b/src/source/test/cintltst/creststn.c
-@@ -937,11 +937,18 @@ static void TestBinaryCollationData(){
+@@ -937,21 +937,49 @@ static void TestBinaryCollationData(){
      log_verbose("Testing binary collation data resource......\n");
  
      testdatapath=loadTestData(&status);
@@ -12,17 +12,34 @@ index a19723b..3ff0250 100644
          log_data_err("Could not load testdata.dat %s \n",myErrorName(status));
          return;
      }
+ 
 +    if (status == U_USING_FALLBACK_WARNING) {
 +        printf("ODADebug: status = %s\n", "U_USING_FALLBACK_WARNING");
 +    }
 +    if (status == U_USING_DEFAULT_WARNING) {
 +        printf("ODADebug: status = %s\n", "U_USING_DEFAULT_WARNING");
 +    }
- 
++
  
      teRes=ures_open(testdatapath, locale, &status);
-@@ -951,7 +958,13 @@ static void TestBinaryCollationData(){
+     if(U_FAILURE(status)){
+         log_err("ERROR: Failed to get resource for \"te\" with %s", myErrorName(status));
+         return;
      }
++
++    const UResType teResType = ures_getType(teRes);
++    switch (teResType) {
++        case URES_NONE: printf("ODADebug: teResType = %s\n", "URES_NONE"); break;
++        case URES_STRING: printf("ODADebug: teResType = %s\n", "URES_STRING"); break;
++        case URES_BINARY: printf("ODADebug: teResType = %s\n", "URES_BINARY"); break;
++        case URES_TABLE: printf("ODADebug: teResType = %s\n", "URES_TABLE"); break;
++        case URES_ALIAS: printf("ODADebug: teResType = %s\n", "URES_ALIAS"); break;
++        case URES_INT: printf("ODADebug: teResType = %s\n", "URES_INT"); break;
++        case URES_ARRAY: printf("ODADebug: teResType = %s\n", "URES_ARRAY"); break;
++        case URES_INT_VECTOR: printf("ODADebug: teResType = %s\n", "URES_INT_VECTOR"); break;
++        default: printf("ODADebug: teResType = %s\n", "Unkhow");
++    }
++
      status=U_ZERO_ERROR;
      coll = ures_getByKey(teRes, "collations", coll, &status);
 +    if(U_FAILURE(status)){
@@ -35,7 +52,7 @@ index a19723b..3ff0250 100644
      if(U_SUCCESS(status)){
          CONFIRM_ErrorCode(status, U_ZERO_ERROR);
          CONFIRM_INT_EQ(ures_getType(coll), URES_TABLE);
-@@ -974,6 +987,7 @@ static void TestBinaryCollationData(){
+@@ -974,6 +1002,7 @@ static void TestBinaryCollationData(){
          log_err("ERROR: ures_getByKey(locale(te), collations) failed\n");
          return;
      }
