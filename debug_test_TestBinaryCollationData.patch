@@ -1,3 +1,16 @@
+diff --git a/src/source/samples/uresb/Makefile b/src/source/samples/uresb/Makefile
+index c05110b..afe46bc 100644
+--- a/src/source/samples/uresb/Makefile
++++ b/src/source/samples/uresb/Makefile
+@@ -59,7 +59,7 @@ distclean clean:
+ ## Special for a special codepage
+ sr.res : sr.txt
+ 	@echo "generating $@"
+-	$(GENRB) $(GENRBOPT) -e cp1251 $?
++	$(GENRB) $(GENRBOPT) -e cp1251 --verbose $?
+ 
+ # Can change this to LINK.c if it is a C only program
+ # Can add more libraries here. 
 diff --git a/src/source/test/cintltst/creststn.c b/src/source/test/cintltst/creststn.c
 index a19723b..39a7f21 100644
 --- a/src/source/test/cintltst/creststn.c
