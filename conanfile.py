@@ -76,6 +76,7 @@ class ICUConan(ConanFile):
                 icu_config_folder = os.path.join(install_folder, "bin")
                 self._append_path_env(icu_config_folder)
                 with tools.chdir("samples"):
+                    self.run("ls -lh uresb/")
                     self.run("make all-samples")
                     with tools.environment_append({"LD_LIBRARY_PATH": os.path.join(install_folder, "lib")}):
                         self.run("env")
