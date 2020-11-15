@@ -66,14 +66,27 @@ class ICUConan(ConanFile):
             if self.settings.os == "Windows":
                 self.run("echo %PATH%")
             if self.settings.os == "Linux":
+                self.run("echo $PATH")
                 self.run("env")
                 self.run("locale")
             self.run("bash -C runConfigureICU %s" % " ".join(flags))
-            #self.run("bash -C runConfigureICU Cygwin/MSVC --help=recursive")
             self.run("make -j %s" % tools.cpu_count())
-            if self.options.with_unit_tests:
-                self.run("make check")
             self.run("make install")
+            if self.options.with_unit_tests:
+                icu_config_folder = os.path.join(install_folder, "bin")
+                self._append_path_env(icu_config_folder)
+                with tools.chdir("samples"):
+                    self.run("make all-samples")
+                    with tools.environment_append({"LD_LIBRARY_PATH": os.path.join(install_folder, "lib")}):
+                        self.run("env")
+                        self.run("uresb/uresb --path %s te" % os.path.join(self.build_folder, "src", "source", "test", "testdata", "out", "testdata"))
+                self.run("make check")
+
+    def _append_path_env(self, folder):
+        if "PATH" in os.environ:
+            os.environ["PATH"] += os.pathsep + folder
+        else:
+            os.environ["PATH"] = folder
 
     def get_build_flags(self):
         flags = []
@@ -129,7 +142,6 @@ class ICUConan(ConanFile):
         if self.settings.os == "Windows" and self.settings.compiler == "Visual Studio":
             if tools.get_env("VisualStudioVersion") is not None:
                 self.output.warn("vcvars already set, skip")
-                #
                 self.output.warn("Shift Cygwin path to end")
                 path_lst = os.environ["PATH"].split(os.pathsep)
                 cygwin_path = self.deps_env_info["cygwin_installer"].path[0]
@@ -138,9 +150,6 @@ class ICUConan(ConanFile):
                 os.environ["PATH"] = os.pathsep.join(path_lst)
             else:
                 env = tools.vcvars_dict(self.settings, filter_known_paths=False, force=True)
-        # Unit tests failed without default locale (on Travis/Appveyor)
-        if not tools.get_env("LC_ALL", False):
-            env["LC_ALL"] = "en_US.UTF-8"
         return env
 
     def package(self):
