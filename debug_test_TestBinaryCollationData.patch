@@ -1,13 +1,13 @@
 diff --git a/src/source/samples/uresb/Makefile b/src/source/samples/uresb/Makefile
-index c05110b..3ce64fc 100644
+index c05110b..05cc6f6 100644
 --- a/src/source/samples/uresb/Makefile
 +++ b/src/source/samples/uresb/Makefile
-@@ -59,7 +59,8 @@ distclean clean:
+@@ -59,7 +59,9 @@ distclean clean:
  ## Special for a special codepage
  sr.res : sr.txt
  	@echo "generating $@"
--	$(GENRB) $(GENRBOPT) -e cp1251 $?
 +	cat $?
+ 	$(GENRB) $(GENRBOPT) -e cp1251 $?
 +	$(GENRB) $(GENRBOPT) -e cp1251 --verbose $?
  
  # Can change this to LINK.c if it is a C only program
