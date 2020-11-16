@@ -113,6 +113,8 @@ class ICUConan(ConanFile):
                 "--disable-tests",
                 "--disable-samples"
             ])
+        if self.settings.build_type == "Debug":
+            flags.append("--enable-tracing")
         return flags
 
     def get_target_platform(self):
