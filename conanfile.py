@@ -24,7 +24,11 @@ class ICUConan(ConanFile):
         "with_unit_tests": [True, False],
         "shared": [True, False]
     }
-    default_options = "dll_sign=True", "with_unit_tests=False", "shared=True"
+    default_options = {
+        "dll_sign": True,
+        "with_unit_tests": False,
+        "shared": True
+    }
     exports_sources = "src/*", "FindICU.cmake", "msvc_mt.patch", "PYTHONPATH_win.patch", "icudata-stdlibs.patch"
     no_copy_source = False
     build_policy = "missing"
