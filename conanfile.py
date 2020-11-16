@@ -73,7 +73,8 @@ class ICUConan(ConanFile):
                 self.run("env")
                 self.run("locale")
             self.run("bash -C runConfigureICU %s" % " ".join(flags))
-            self.run("make -j %s" % tools.cpu_count())
+            debug_arg = "VERBOSE=1" if self.settings.build_type == "Debug" else ""
+            self.run("make %s -j %s" % (debug_arg, tools.cpu_count()))
             self.run("make install")
             if self.options.with_unit_tests:
                 self.run("make check")
