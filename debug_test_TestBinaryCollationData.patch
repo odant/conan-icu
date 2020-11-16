@@ -7,7 +7,7 @@ index c05110b..ead2484 100644
  sr.res : sr.txt
  	@echo "generating $@"
 +	cat $?
-+	$(GENRB) $(GENRBOPT) -e $?
++	$(GENRB) $(GENRBOPT) $?
  	$(GENRB) $(GENRBOPT) -e cp1251 $?
  
  # Can change this to LINK.c if it is a C only program
