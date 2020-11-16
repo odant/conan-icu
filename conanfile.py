@@ -177,6 +177,10 @@ class ICUConan(ConanFile):
                     self.output.info("Sign %s" % fpath)
                     self.run(cmd)
 
+        # Debug build in local folder
+        if not self.in_local_cache:
+            self.copy("conanfile.py", dst=".", keep_path=False)
+
     def package_id(self):
         # ICU unit testing shouldn't affect the package's ID
         self.info.options.with_unit_tests = "any"
