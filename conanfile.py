@@ -25,7 +25,7 @@ class ICUConan(ConanFile):
         "shared": [True, False]
     }
     default_options = "dll_sign=True", "with_unit_tests=False", "shared=True"
-    exports_sources = "src/*", "FindICU.cmake", "msvc_mt.patch", "PYTHONPATH_win.patch", "icudata-stdlibs.patch", "debug_test_TestBinaryCollationData.patch"
+    exports_sources = "src/*", "FindICU.cmake", "msvc_mt.patch", "PYTHONPATH_win.patch", "icudata-stdlibs.patch"
     no_copy_source = False
     build_policy = "missing"
 
@@ -48,7 +48,6 @@ class ICUConan(ConanFile):
             self.build_requires("windows_signtool/[>=1.1]@%s/stable" % self.user)
 
     def source(self):
-        tools.patch(patch_file="debug_test_TestBinaryCollationData.patch")
         tools.patch(patch_file="msvc_mt.patch")
         if tools.os_info.is_windows:
             tools.patch(patch_file="PYTHONPATH_win.patch")
@@ -73,21 +72,7 @@ class ICUConan(ConanFile):
             self.run("make -j %s" % tools.cpu_count())
             self.run("make install")
             if self.options.with_unit_tests:
-                icu_config_folder = os.path.join(install_folder, "bin")
-                self._append_path_env(icu_config_folder)
-                with tools.chdir("samples"):
-                    self.run("ls -lh uresb/")
-                    self.run("make all-samples")
-                    with tools.environment_append({"LD_LIBRARY_PATH": os.path.join(install_folder, "lib")}):
-                        self.run("env")
-                        self.run("uresb/uresb --path %s te" % os.path.join(self.build_folder, "src", "source", "test", "testdata", "out", "testdata"))
                 self.run("make check")
-
-    def _append_path_env(self, folder):
-        if "PATH" in os.environ:
-            os.environ["PATH"] += os.pathsep + folder
-        else:
-            os.environ["PATH"] = folder
 
     def get_build_flags(self):
         flags = []
