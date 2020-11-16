@@ -15,7 +15,7 @@ class ICUConan(ConanFile):
     url = "https://github.com/odant/conan-icu"
     settings = {
         "os": ["Windows", "Linux"],
-        "compiler": ["Visual Studio", "gcc"],
+        "compiler": ["Visual Studio", "gcc", "clang"],
         "build_type": ["Debug", "Release"],
         "arch": ["x86", "x86_64", "mips", "armv7"]
     }
@@ -122,8 +122,11 @@ class ICUConan(ConanFile):
                 return "Cygwin/MSVC_MT"
             else:
                 return "Cygwin/MSVC"
-        elif self.settings.os == "Linux" and self.settings.compiler == "gcc":
-            return "Linux/gcc"
+        elif self.settings.os == "Linux":
+            if self.settings.compiler == "gcc":
+                return "Linux/gcc"
+            else:
+                return "Linux" # Use the clang/clang++ or GNU gcc/g++ compilers on Linux
         else:
             raise Exception("Unsupported target platform!")
 
