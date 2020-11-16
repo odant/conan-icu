@@ -1,16 +1,16 @@
 diff --git a/src/source/samples/uresb/Makefile b/src/source/samples/uresb/Makefile
-index c05110b..ead2484 100644
+index c05110b..fd008f1 100644
 --- a/src/source/samples/uresb/Makefile
 +++ b/src/source/samples/uresb/Makefile
-@@ -59,6 +59,8 @@ distclean clean:
- ## Special for a special codepage
- sr.res : sr.txt
- 	@echo "generating $@"
-+	cat $?
-+	$(GENRB) $(GENRBOPT) --encoding cp1251 --verbose $?
- 	$(GENRB) $(GENRBOPT) -e cp1251 $?
+@@ -24,7 +24,7 @@ GENRBOPT = -s. -d.
+ # Name of your target
+ TARGET=uresb
+ PKG=$(TARGET)
+-RES_SRC=root.txt en.txt sr.txt
++RES_SRC=root.txt en.txt
+ RESOURCES=$(RES_SRC:%.txt=%.res)
  
- # Can change this to LINK.c if it is a C only program
+ # All object files (C or C++)
 diff --git a/src/source/test/cintltst/creststn.c b/src/source/test/cintltst/creststn.c
 index a19723b..39a7f21 100644
 --- a/src/source/test/cintltst/creststn.c
