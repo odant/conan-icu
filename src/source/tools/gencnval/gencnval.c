@@ -32,6 +32,7 @@
 #include "cstring.h"
 #include "uinvchar.h"
 #include "filestrm.h"
+#include "toolutil.h"
 #include "unicode/uclean.h"
 #include "unewdata.h"
 #include "uoptions.h"
@@ -582,6 +583,7 @@ addTaggedAlias(uint16_t tag, const char *alias, uint16_t converter) {
 
 static void
 addOfficialTaggedStandards(char *line, int32_t lineLen) {
+    (void) lineLen; // suppress compiler warnings about unused variable
     char *atag;
     char *endTagExp;
     char *tag;

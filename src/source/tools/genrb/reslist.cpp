@@ -39,6 +39,7 @@
 #include "unicode/putil.h"
 #include "errmsg.h"
 #include "filterrb.h"
+#include "toolutil.h"
 
 #include "uarrsort.h"
 #include "uelement.h"
@@ -1371,7 +1372,7 @@ SRBRoot::compactKeys(UErrorCode &errorCode) {
     }
 
     int32_t keysCount = fUsePoolBundle->fKeysCount + fKeysCount;
-    if (U_FAILURE(errorCode) || fKeysCount == 0 || fKeyMap != NULL) {
+    if (U_FAILURE(errorCode) || fKeyMap != NULL) {
         return;
     }
     map = (KeyMapEntry *)uprv_malloc(keysCount * sizeof(KeyMapEntry));
