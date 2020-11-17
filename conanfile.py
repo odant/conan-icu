@@ -100,7 +100,8 @@ class ICUConan(ConanFile):
             ])
         flags.extend([
             "--with-library-bits=%s" % {"x86": "32", "x86_64": "64", "mips": "32", "armv7": "32"}.get(str(self.settings.arch)),
-            "--disable-renaming"
+            "--disable-renaming",
+            "--disable-extras"
         ])
         if self.options.with_unit_tests:
             flags.extend([
