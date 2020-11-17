@@ -15,7 +15,7 @@ class ICUConan(ConanFile):
     url = "https://github.com/odant/conan-icu"
     settings = {
         "os": ["Windows", "Linux"],
-        "compiler": ["Visual Studio", "gcc"],
+        "compiler": ["Visual Studio", "gcc", "clang"],
         "build_type": ["Debug", "Release"],
         "arch": ["x86", "x86_64", "mips", "armv7"]
     }
@@ -24,7 +24,11 @@ class ICUConan(ConanFile):
         "with_unit_tests": [True, False],
         "shared": [True, False]
     }
-    default_options = "dll_sign=True", "with_unit_tests=False", "shared=True"
+    default_options = {
+        "dll_sign": True,
+        "with_unit_tests": False,
+        "shared": True
+    }
     exports_sources = "src/*", "FindICU.cmake", "msvc_mt.patch", "PYTHONPATH_win.patch", "icudata-stdlibs.patch"
     no_copy_source = False
     build_policy = "missing"
@@ -64,12 +68,16 @@ class ICUConan(ConanFile):
         with tools.chdir("src/source"), tools.environment_append(build_env):
             if self.settings.os == "Windows":
                 self.run("echo %PATH%")
+            if self.settings.os == "Linux":
+                self.run("echo $PATH")
+                self.run("env")
+                self.run("locale")
             self.run("bash -C runConfigureICU %s" % " ".join(flags))
-            #self.run("bash -C runConfigureICU Cygwin/MSVC --help=recursive")
-            self.run("make -j %s" % tools.cpu_count())
+            debug_arg = "VERBOSE=1" if self.settings.build_type == "Debug" else ""
+            self.run("make %s -j %s" % (debug_arg, tools.cpu_count()))
+            self.run("make install")
             if self.options.with_unit_tests:
                 self.run("make check")
-            self.run("make install")
 
     def get_build_flags(self):
         flags = []
@@ -94,13 +102,20 @@ class ICUConan(ConanFile):
             ])
         flags.extend([
             "--with-library-bits=%s" % {"x86": "32", "x86_64": "64", "mips": "32", "armv7": "32"}.get(str(self.settings.arch)),
-            "--disable-renaming",
-            "--disable-samples",
+            "--disable-renaming"
         ])
         if self.options.with_unit_tests:
-            flags.append("--enable-tests")
+            flags.extend([
+                "--enable-tests",
+                "--enable-samples"
+            ])
         else:
-            flags.append("--disable-tests")
+            flags.extend([
+                "--disable-tests",
+                "--disable-samples"
+            ])
+        if self.settings.build_type == "Debug":
+            flags.append("--enable-tracing")
         return flags
 
     def get_target_platform(self):
@@ -109,8 +124,11 @@ class ICUConan(ConanFile):
                 return "Cygwin/MSVC_MT"
             else:
                 return "Cygwin/MSVC"
-        elif self.settings.os == "Linux" and self.settings.compiler == "gcc":
-            return "Linux/gcc"
+        elif self.settings.os == "Linux":
+            if self.settings.compiler == "gcc":
+                return "Linux/gcc"
+            else:
+                return "Linux" # Use the clang/clang++ or GNU gcc/g++ compilers on Linux
         else:
             raise Exception("Unsupported target platform!")
 
@@ -119,7 +137,6 @@ class ICUConan(ConanFile):
         if self.settings.os == "Windows" and self.settings.compiler == "Visual Studio":
             if tools.get_env("VisualStudioVersion") is not None:
                 self.output.warn("vcvars already set, skip")
-                #
                 self.output.warn("Shift Cygwin path to end")
                 path_lst = os.environ["PATH"].split(os.pathsep)
                 cygwin_path = self.deps_env_info["cygwin_installer"].path[0]
@@ -128,7 +145,6 @@ class ICUConan(ConanFile):
                 os.environ["PATH"] = os.pathsep.join(path_lst)
             else:
                 env = tools.vcvars_dict(self.settings, filter_known_paths=False, force=True)
-        env["PYTHON"] = "python"
         return env
 
     def package(self):
@@ -160,6 +176,10 @@ class ICUConan(ConanFile):
                     cmd = windows_signtool.get_sign_command(fpath, digest_algorithm=alg, timestamp=is_timestamp)
                     self.output.info("Sign %s" % fpath)
                     self.run(cmd)
+
+        # Debug build in local folder
+        if not self.in_local_cache:
+            self.copy("conanfile.py", dst=".", keep_path=False)
 
     def package_id(self):
         # ICU unit testing shouldn't affect the package's ID

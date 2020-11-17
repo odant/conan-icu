@@ -1,8 +1,8 @@
-# Test for ICU Conan package
-# Dmitriy Vetutnev, ODANT, 2018-2020
+# Test Conan package
+# Dmitriy Vetutnev, Odant 2019 - 2020
 
 
-from conans import ConanFile, CMake, tools
+from conans import ConanFile, CMake
 
 
 class PackageTestConan(ConanFile):
@@ -27,3 +27,4 @@ class PackageTestConan(ConanFile):
             self.run("ctest --verbose --build-config %s" % self.settings.build_type)
         else:
             self.run("ctest --verbose")
+

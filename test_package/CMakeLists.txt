@@ -50,3 +50,23 @@ if(UNIX)
     set_property(TEST case PROPERTY ENVIRONMENT LD_LIBRARY_PATH=${CMAKE_BINARY_DIR}/bin)
 endif()
 
+
+# Debug static build
+find_package(ICU REQUIRED)
+
+add_executable(test_ucnv_open test_ucnv_open.cpp)
+target_link_libraries(test_ucnv_open ICU::io)
+set_target_properties(test_ucnv_open
+    PROPERTIES
+    INSTALL_RPATH "$ORIGIN"
+    BUILD_WITH_INSTALL_RPATH True
+)
+add_test(
+    NAME test_ucnv_open
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+    COMMAND test_ucnv_open
+)
+if(UNIX)
+    set_property(TEST test_ucnv_open PROPERTY ENVIRONMENT LD_LIBRARY_PATH=${CMAKE_BINARY_DIR}/bin)
+endif()
+
