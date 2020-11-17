@@ -54,8 +54,7 @@ class ICUConan(ConanFile):
     def source(self):
         tools.patch(patch_file="msvc_mt.patch")
         tools.patch(patch_file="data_rc.patch")
-        if tools.os_info.is_linux:
-            tools.patch(patch_file="icudata-stdlibs.patch")
+        tools.patch(patch_file="icudata-stdlibs.patch")
         if not tools.os_info.is_windows:
             self.run("chmod a+x %s" % os.path.join(self.source_folder, "src/source/configure"))
 
