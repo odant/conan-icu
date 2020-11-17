@@ -98,12 +98,15 @@ if(ICU_FOUND)
 
     endif()
 
+    include(CMakeFindDependencyMacro)
+    find_dependency(Threads)
+
     if(NOT TARGET ICU::uc)
 
         add_library(ICU::uc UNKNOWN IMPORTED)
         set_target_properties(ICU::uc PROPERTIES
             IMPORTED_LOCATION ${ICU_uc_LIBRARY}
-            INTERFACE_LINK_LIBRARIES ICU::data
+            INTERFACE_LINK_LIBRARIES "ICU::data;Threads::Threads"
         )
 
     endif()

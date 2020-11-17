@@ -190,5 +190,5 @@ class ICUConan(ConanFile):
         if self.settings.os == "Windows":
             self.cpp_info.libs = tools.collect_libs(self)
         else:
-            self.cpp_info.libs = ["icuio", "icui18n", "icuuc", "icudata"]
+            self.cpp_info.libs = ["icuio", "icui18n", "icuuc", "icudata", "pthread"]
 
