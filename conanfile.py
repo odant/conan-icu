@@ -29,7 +29,7 @@ class ICUConan(ConanFile):
         "with_unit_tests": False,
         "shared": True
     }
-    exports_sources = "src/*", "FindICU.cmake", "msvc_mt.patch", "PYTHONPATH_win.patch", "icudata-stdlibs.patch"
+    exports_sources = "src/*", "FindICU.cmake", "msvc_mt.patch", "data_rc.patch", "icudata-stdlibs.patch"
     no_copy_source = False
     build_policy = "missing"
 
@@ -53,8 +53,7 @@ class ICUConan(ConanFile):
 
     def source(self):
         tools.patch(patch_file="msvc_mt.patch")
-        if tools.os_info.is_windows:
-            tools.patch(patch_file="PYTHONPATH_win.patch")
+        tools.patch(patch_file="data_rc.patch")
         if tools.os_info.is_linux:
             tools.patch(patch_file="icudata-stdlibs.patch")
         if not tools.os_info.is_windows:
