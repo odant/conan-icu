@@ -64,12 +64,6 @@ class ICUConan(ConanFile):
         flags.append("--prefix=%s" % tools.unix_path(install_folder))
         build_env = self.get_build_environment()
         with tools.chdir("src/source"), tools.environment_append(build_env):
-            if self.settings.os == "Windows":
-                self.run("echo %PATH%")
-            if self.settings.os == "Linux":
-                self.run("echo $PATH")
-                self.run("env")
-                self.run("locale")
             self.run("bash -C runConfigureICU %s" % " ".join(flags))
             debug_arg = "VERBOSE=1" if self.settings.build_type == "Debug" else ""
             self.run("make %s -j %s" % (debug_arg, tools.cpu_count()))
@@ -132,16 +126,7 @@ class ICUConan(ConanFile):
     def get_build_environment(self):
         env = {}
         if self.settings.os == "Windows" and self.settings.compiler == "Visual Studio":
-            if tools.get_env("VisualStudioVersion") is not None:
-                self.output.warn("vcvars already set, skip")
-                self.output.warn("Shift Cygwin path to end")
-                path_lst = os.environ["PATH"].split(os.pathsep)
-                cygwin_path = self.deps_env_info["cygwin_installer"].path[0]
-                path_lst.remove(cygwin_path)
-                path_lst.append(cygwin_path)
-                os.environ["PATH"] = os.pathsep.join(path_lst)
-            else:
-                env = tools.vcvars_dict(self.settings, filter_known_paths=False, force=True)
+            env = tools.vcvars_dict(self)
         return env
 
     def package(self):
