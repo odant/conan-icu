@@ -8,7 +8,7 @@ import os, glob
 
 class ICUConan(ConanFile):
     name = "icu"
-    version = "68.1+0"
+    version = "68.2+0"
     license = "http://www.unicode.org/copyright.html#License"
     description = "ICU is a mature, widely used set of C/C++ and Java libraries " \
                   "providing Unicode and Globalization support for software applications."
