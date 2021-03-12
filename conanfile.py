@@ -29,7 +29,7 @@ class ICUConan(ConanFile):
         "with_unit_tests": False,
         "shared": True
     }
-    exports_sources = "src/*", "FindICU.cmake", "msvc_mt.patch", "data_rc.patch", "icudata-stdlibs.patch"
+    exports_sources = "src/*", "FindICU.cmake", "msvc.patch", "data_rc.patch", "icudata-stdlibs.patch"
     no_copy_source = False
     build_policy = "missing"
 
@@ -52,7 +52,7 @@ class ICUConan(ConanFile):
             self.build_requires("windows_signtool/[>=1.1]@%s/stable" % self.user)
 
     def source(self):
-        tools.patch(patch_file="msvc_mt.patch")
+        tools.patch(patch_file="msvc.patch")
         tools.patch(patch_file="data_rc.patch")
         tools.patch(patch_file="icudata-stdlibs.patch")
         if not tools.os_info.is_windows:
@@ -111,10 +111,14 @@ class ICUConan(ConanFile):
 
     def get_target_platform(self):
         if self.settings.os == "Windows" and self.settings.compiler == "Visual Studio":
+            platform = "Cygwin/MSVC"
+            vs_toolset = str(self.settings.compiler.toolset).lower()
+            if vs_toolset == "clangcl":
+                platform += "_ClangCL"
             if self.settings.compiler.runtime == "MT" or self.settings.compiler.runtime == "MTd":
-                return "Cygwin/MSVC_MT"
-            else:
-                return "Cygwin/MSVC"
+                platform += "_MT"
+            self.output.info("Using '%s' target platform" % platform)
+            return platform
         elif self.settings.os == "Linux":
             if self.settings.compiler == "gcc":
                 return "Linux/gcc"
