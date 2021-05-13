@@ -8,7 +8,7 @@ import os, glob
 
 class ICUConan(ConanFile):
     name = "icu"
-    version = "68.2+1"
+    version = "69.1+0"
     license = "http://www.unicode.org/copyright.html#License"
     description = "ICU is a mature, widely used set of C/C++ and Java libraries " \
                   "providing Unicode and Globalization support for software applications."
@@ -49,7 +49,7 @@ class ICUConan(ConanFile):
         if self.settings.os == "Windows" and self.settings.compiler == "Visual Studio":
             self.build_requires("cygwin_installer/2.9.0@bincrafters/stable")
         if self.options.get_safe("dll_sign"):
-            self.build_requires("windows_signtool/[>=1.1]@%s/stable" % self.user)
+            self.build_requires("windows_signtool/[>=1.2]@%s/stable" % self.user)
 
     def source(self):
         tools.patch(patch_file="msvc.patch")
