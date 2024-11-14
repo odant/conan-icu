@@ -2,7 +2,7 @@ diff --git a/src/source/runConfigureICU b/src/source/runConfigureICU
 index 7909c983..fb5da866 100755
 --- a/src/source/runConfigureICU
 +++ b/src/source/runConfigureICU
-@@ -290,9 +290,42 @@ case $platform in
+@@ -289,9 +289,42 @@ case $platform in
          CC=cl; export CC
          CXX=cl; export CXX
          RELEASE_CFLAGS='-Gy -MD'
