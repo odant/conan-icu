@@ -66,17 +66,11 @@ pl{
         "Africa:Porto-Novo"{
             ec{"Porto Novo"}
         }
-        "Africa:Sao_Tome"{
-            ec{"São Tomé"}
-        }
         "Africa:Tripoli"{
             ec{"Trypolis"}
         }
         "Africa:Windhoek"{
             ec{"Windhuk"}
-        }
-        "America:Asuncion"{
-            ec{"Asunción"}
         }
         "America:Bahia"{
             ec{"Salvador"}
@@ -102,9 +96,6 @@ pl{
         "America:Cuiaba"{
             ec{"Cuiabá"}
         }
-        "America:Curacao"{
-            ec{"Curaçao"}
-        }
         "America:Dominica"{
             ec{"Dominika"}
         }
@@ -125,9 +116,6 @@ pl{
         }
         "America:Jamaica"{
             ec{"Jamajka"}
-        }
-        "America:Kentucky:Monticello"{
-            ec{"Monticello"}
         }
         "America:Maceio"{
             ec{"Maceió"}
@@ -212,9 +200,6 @@ pl{
         }
         "Asia:Chita"{
             ec{"Czyta"}
-        }
-        "Asia:Choibalsan"{
-            ec{"Czojbalsan"}
         }
         "Asia:Colombo"{
             ec{"Kolombo"}
@@ -538,9 +523,6 @@ pl{
         "Indian:Mayotte"{
             ec{"Majotta"}
         }
-        "Indian:Reunion"{
-            ec{"Réunion"}
-        }
         "Pacific:Bougainville"{
             ec{"Wyspa Bougainville’a"}
         }
@@ -719,11 +701,6 @@ pl{
             lg{"czas Chiny"}
             ls{"Chiny (czas standardowy)"}
         }
-        "meta:Choibalsan"{
-            ld{"Czojbalsan (czas letni)"}
-            lg{"czas Czojbalsan"}
-            ls{"Czojbalsan (czas standardowy)"}
-        }
         "meta:Christmas"{
             ls{"czas Wyspa Bożego Narodzenia"}
         }
@@ -895,6 +872,9 @@ pl{
             ld{"czas Pietropawłowsk Kamczacki letni"}
             lg{"czas Pietropawłowsk Kamczacki"}
             ls{"czas standardowy Pietropawłowsk Kamczacki"}
+        }
+        "meta:Kazakhstan"{
+            ls{"czas Kazachstan"}
         }
         "meta:Kazakhstan_Eastern"{
             ls{"czas Kazachstan Wschodni"}

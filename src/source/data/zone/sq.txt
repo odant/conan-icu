@@ -477,9 +477,6 @@ sq{
         "Asia:Chita"{
             ec{"Çita"}
         }
-        "Asia:Choibalsan"{
-            ec{"Çoibalsan"}
-        }
         "Asia:Colombo"{
             ec{"Kolombo"}
         }
@@ -1051,11 +1048,6 @@ sq{
             lg{"Ora e Kinës"}
             ls{"Ora standarde e Kinës"}
         }
-        "meta:Choibalsan"{
-            ld{"Ora verore e Çoibalsanit"}
-            lg{"Ora e Çoibalsanit"}
-            ls{"Ora standarde e Çoibalsanit"}
-        }
         "meta:Christmas"{
             ls{"Ora e Ishullit të Krishtlindjeve"}
         }
@@ -1221,6 +1213,9 @@ sq{
             ld{"Ora verore e Petropavllovsk-Kamçatkës"}
             lg{"Ora e Petropavllovsk-Kamçatkës"}
             ls{"Ora standarde e Petropavllovsk-Kamçatkës"}
+        }
+        "meta:Kazakhstan"{
+            ls{"Ora e Kazakistanit"}
         }
         "meta:Kazakhstan_Eastern"{
             ls{"Ora e Kazakistanit Lindor"}

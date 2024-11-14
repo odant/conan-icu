@@ -237,11 +237,6 @@ ms{
             lg{"Waktu China"}
             ls{"Waktu Piawai China"}
         }
-        "meta:Choibalsan"{
-            ld{"Waktu Musim Panas Choibalsan"}
-            lg{"Waktu Choibalsan"}
-            ls{"Waktu Piawai Choibalsan"}
-        }
         "meta:Christmas"{
             ls{"Waktu Pulau Christmas"}
         }
@@ -405,6 +400,9 @@ ms{
             ld{"Waktu Musim Panas Petropavlovsk-Kamchatski"}
             lg{"Waktu Petropavlovsk-Kamchatski"}
             ls{"Waktu Piawai Petropavlovsk-Kamchatski"}
+        }
+        "meta:Kazakhstan"{
+            ls{"Waktu Kazakhstan"}
         }
         "meta:Kazakhstan_Eastern"{
             ls{"Waktu Kazakhstan Timur"}

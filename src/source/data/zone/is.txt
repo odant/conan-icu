@@ -36,9 +36,6 @@ is{
         "America:Aruba"{
             ec{"Arúba"}
         }
-        "America:Asuncion"{
-            ec{"Asunción"}
-        }
         "America:Bahia_Banderas"{
             ec{"Bahia Banderas"}
         }
@@ -189,6 +186,9 @@ is{
         "Asia:Ulaanbaatar"{
             ec{"Úlan Bator"}
         }
+        "Asia:Yerevan"{
+            ec{"Jerevan"}
+        }
         "Atlantic:Azores"{
             ec{"Azoreyjar"}
         }
@@ -327,9 +327,6 @@ is{
         }
         "Indian:Mauritius"{
             ec{"Máritíus"}
-        }
-        "Indian:Reunion"{
-            ec{"Réunion"}
         }
         "Pacific:Easter"{
             ec{"Páskaeyja"}
@@ -512,11 +509,6 @@ is{
             lg{"Kínatími"}
             ls{"Staðaltími í Kína"}
         }
-        "meta:Choibalsan"{
-            ld{"Sumartími í Choibalsan"}
-            lg{"Tími í Choibalsan"}
-            ls{"Staðaltími í Choibalsan"}
-        }
         "meta:Christmas"{
             ls{"Jólaeyjartími"}
         }
@@ -679,6 +671,9 @@ is{
             ld{"Sumartími í Petropavlovsk-Kamchatski"}
             lg{"Tími í Petropavlovsk-Kamchatski"}
             ls{"Staðaltími í Petropavlovsk-Kamchatski"}
+        }
+        "meta:Kazakhstan"{
+            ls{"Tími í Kasakstan"}
         }
         "meta:Kazakhstan_Eastern"{
             ls{"Tími í Austur-Kasakstan"}
@@ -847,9 +842,9 @@ is{
             ls{"Rothera-tími"}
         }
         "meta:Sakhalin"{
-            ld{"Sumartími í Sakhalin"}
-            lg{"Tími í Sakhalin"}
-            ls{"Staðaltími í Sakhalin"}
+            ld{"Sumartími á Sakhalin"}
+            lg{"Tími á Sakhalin"}
+            ls{"Staðaltími á Sakhalin"}
         }
         "meta:Samara"{
             ld{"Sumartími í Samara"}

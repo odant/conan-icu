@@ -24,9 +24,6 @@ nl{
         "America:Argentina:Tucuman"{
             ec{"Tucumán"}
         }
-        "America:Asuncion"{
-            ec{"Asunción"}
-        }
         "America:Belem"{
             ec{"Belém"}
         }
@@ -38,9 +35,6 @@ nl{
         }
         "America:Cuiaba"{
             ec{"Cuiabá"}
-        }
-        "America:Curacao"{
-            ec{"Curaçao"}
         }
         "America:Lower_Princes"{
             ec{"Beneden Prinsen Kwartier"}
@@ -113,9 +107,6 @@ nl{
         }
         "Asia:Calcutta"{
             ec{"Calcutta"}
-        }
-        "Asia:Choibalsan"{
-            ec{"Tsjojbalsan"}
         }
         "Asia:Dushanbe"{
             ec{"Doesjanbe"}
@@ -282,9 +273,6 @@ nl{
         }
         "Indian:Maldives"{
             ec{"Maldiven"}
-        }
-        "Indian:Reunion"{
-            ec{"Réunion"}
         }
         "Pacific:Easter"{
             ec{"Paaseiland"}
@@ -502,11 +490,6 @@ nl{
             lg{"Chinese tijd"}
             ls{"Chinese standaardtijd"}
         }
-        "meta:Choibalsan"{
-            ld{"Tsjojbalsan-zomertijd"}
-            lg{"Tsjojbalsan-tijd"}
-            ls{"Tsjojbalsan-standaardtijd"}
-        }
         "meta:Christmas"{
             ls{"Christmaseilandse tijd"}
         }
@@ -685,6 +668,9 @@ nl{
             ld{"Petropavlovsk-Kamtsjatski-zomertijd"}
             lg{"Petropavlovsk-Kamtsjatski-tijd"}
             ls{"Petropavlovsk-Kamtsjatski-standaardtijd"}
+        }
+        "meta:Kazakhstan"{
+            ls{"Kazachse tijd"}
         }
         "meta:Kazakhstan_Eastern"{
             ls{"Oost-Kazachse tijd"}

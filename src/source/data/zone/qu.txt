@@ -426,11 +426,6 @@ qu{
             lg{"Hora de China"}
             ls{"Hora Estandar de China"}
         }
-        "meta:Choibalsan"{
-            ld{"Hora de Verano de Choybalsan"}
-            lg{"Hora de Choybalsan"}
-            ls{"Hora Estandar de Choybalsan"}
-        }
         "meta:Christmas"{
             ls{"Hora de Isla Christmas"}
         }
@@ -588,6 +583,9 @@ qu{
             ld{"Hora de Verano de Japón"}
             lg{"Hora de Japón"}
             ls{"Hora Estandar de Japón"}
+        }
+        "meta:Kazakhstan"{
+            ls{"Hora de Kazajistán"}
         }
         "meta:Kazakhstan_Eastern"{
             ls{"Hora de Kazajistán Oriental"}

@@ -484,11 +484,6 @@ mi{
             lg{"Wā Haina"}
             ls{"Wā Haina Arowhānui"}
         }
-        "meta:Choibalsan"{
-            ld{"Wā Choibalsan Raumati"}
-            lg{"Wā Choibalsan"}
-            ls{"Wā Choibalsan Arowhānui"}
-        }
         "meta:Christmas"{
             ls{"Wā o Te Moutere Kirihimete"}
         }
@@ -646,6 +641,9 @@ mi{
             ld{"Wā Hapani Awatea"}
             lg{"Wā Hapani"}
             ls{"Wā Hapani Arowhānui"}
+        }
+        "meta:Kazakhstan"{
+            ls{"Wā Katatānga"}
         }
         "meta:Kazakhstan_Eastern"{
             ls{"Wā Katatānga ki te Rāwhiti"}

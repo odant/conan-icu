@@ -181,7 +181,10 @@ pcm{
             ec{"Sálta"}
         }
         "America:Argentina:San_Juan"{
-            ec{"San Hwan"}
+            ec{"Sán Hwán"}
+        }
+        "America:Argentina:San_Luis"{
+            ec{"Sán Luis"}
         }
         "America:Argentina:Tucuman"{
             ec{"Túkúman"}
@@ -633,6 +636,9 @@ pcm{
         "Asia:Bahrain"{
             ec{"Bahrén"}
         }
+        "Asia:Baku"{
+            ec{"Báku"}
+        }
         "Asia:Bangkok"{
             ec{"Bánkọk"}
         }
@@ -653,9 +659,6 @@ pcm{
         }
         "Asia:Chita"{
             ec{"Chítá"}
-        }
-        "Asia:Choibalsan"{
-            ec{"Choibálsan"}
         }
         "Asia:Colombo"{
             ec{"Kolómbo"}
@@ -1357,11 +1360,6 @@ pcm{
             lg{"Chaína Taim"}
             ls{"Chaína Fíksd Taim"}
         }
-        "meta:Choibalsan"{
-            ld{"Choibálsan Họ́t Sízin Taim"}
-            lg{"Choibálsan Taim"}
-            ls{"Choibálsan Fíksd Taim"}
-        }
         "meta:Christmas"{
             ls{"Krísmás Aíland Taim"}
         }
@@ -1519,6 +1517,9 @@ pcm{
             ld{"Japan Délaít Taim"}
             lg{"Japan Taim"}
             ls{"Japan Fíksd Taim"}
+        }
+        "meta:Kazakhstan"{
+            ls{"Kazékstan Taim"}
         }
         "meta:Kazakhstan_Eastern"{
             ls{"Íst Kazékstan Taim"}

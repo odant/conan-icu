@@ -2,7 +2,7 @@
 // License & terms of use: http://www.unicode.org/copyright.html
 // Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 units:table(nofallback){
-    cldrVersion{"45"}
+    cldrVersion{"46"}
     convertUnits{
         100-kilometer{
             factor{"100000"}
@@ -296,7 +296,7 @@ units:table(nofallback){
         }
         gasoline-energy-density{
             factor{"33.705 * 3600 * 1000/gal_to_m3"}
-            systems{"metric_adjacent ussystem uksystem"}
+            systems{"ussystem uksystem"}
             target{"kilogram-per-meter-square-second"}
         }
         grain{
@@ -412,6 +412,11 @@ units:table(nofallback){
             systems{"jpsystem"}
             target{"cubic-meter"}
         }
+        light-speed{
+            factor{"speed_of_light_meters_per_second"}
+            systems{"ussystem uksystem si_acceptable"}
+            target{"meter-per-second"}
+        }
         light-year{
             factor{"speed_of_light_meters_per_second*sec_per_julian_year"}
             systems{"astronomical"}
@@ -479,6 +484,11 @@ units:table(nofallback){
             factor{"1"}
             systems{"si metric prefixable"}
             target{"kilogram-meter-per-square-second"}
+        }
+        night{
+            factor{"1"}
+            systems{"metric_adjacent uksystem ussystem"}
+            target{"night"}
         }
         ofglucose{
             factor{"1000*item_per_mole/glucose_molar_mass"}
@@ -2004,6 +2014,16 @@ units:table(nofallback){
                         unit{"kilometer-per-hour"}
                     }
                 }
+                CN{
+                    {
+                        unit{"meter-per-second"}
+                    }
+                }
+                DK{
+                    {
+                        unit{"meter-per-second"}
+                    }
+                }
                 FI{
                     {
                         unit{"meter-per-second"}
@@ -2012,6 +2032,11 @@ units:table(nofallback){
                 GB{
                     {
                         unit{"mile-per-hour"}
+                    }
+                }
+                JP{
+                    {
+                        unit{"meter-per-second"}
                     }
                 }
                 KR{
@@ -2425,6 +2450,9 @@ units:table(nofallback){
         }
         {
             year{"year-duration"}
+        }
+        {
+            night{"night-duration"}
         }
         {
             ampere{"electric-current"}

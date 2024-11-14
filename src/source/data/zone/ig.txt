@@ -15,6 +15,9 @@ ig{
         "Europe:London"{
             ld{"Oge Okpomọkụ Britain"}
         }
+        "Pacific:Enderbury"{
+            ec{"Enderbury"}
+        }
         "meta:Afghanistan"{
             ls{"Oge Afghanistan"}
         }
@@ -163,11 +166,6 @@ ig{
             ld{"Oge Ihe China"}
             lg{"Oge China"}
             ls{"Oge Izugbe China"}
-        }
-        "meta:Choibalsan"{
-            ld{"Oge Okpomọkụ Choibals"}
-            lg{"Oge Choibals"}
-            ls{"Oge Izugbe Choibals"}
         }
         "meta:Christmas"{
             ls{"Oge Ekeresimesi Island"}
@@ -326,6 +324,9 @@ ig{
             ld{"Oge Ihe Japan"}
             lg{"Oge Japan"}
             ls{"Oge Izugbe Japan"}
+        }
+        "meta:Kazakhstan"{
+            ls{"Oge Kazakhstan"}
         }
         "meta:Kazakhstan_Eastern"{
             ls{"Oge Mpaghara Ọwụwa Anyanwụ Kazakhstan"}

@@ -678,9 +678,6 @@ ja{
         "Asia:Chita"{
             ec{"チタ"}
         }
-        "Asia:Choibalsan"{
-            ec{"チョイバルサン"}
-        }
         "Asia:Colombo"{
             ec{"コロンボ"}
         }
@@ -1445,11 +1442,6 @@ ja{
             lg{"中国時間"}
             ls{"中国標準時"}
         }
-        "meta:Choibalsan"{
-            ld{"チョイバルサン夏時間"}
-            lg{"チョイバルサン時間"}
-            ls{"チョイバルサン標準時"}
-        }
         "meta:Christmas"{
             ls{"クリスマス島時間"}
         }
@@ -1618,6 +1610,9 @@ ja{
             ld{"ペトロパブロフスク・カムチャツキー夏時間"}
             lg{"ペトロパブロフスク・カムチャツキー時間"}
             ls{"ペトロパブロフスク・カムチャツキー標準時"}
+        }
+        "meta:Kazakhstan"{
+            ls{"カザフスタン時間"}
         }
         "meta:Kazakhstan_Eastern"{
             ls{"東カザフスタン時間"}

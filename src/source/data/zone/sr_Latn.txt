@@ -679,9 +679,6 @@ sr_Latn{
         "Asia:Chita"{
             ec{"Čita"}
         }
-        "Asia:Choibalsan"{
-            ec{"Čojbalsan"}
-        }
         "Asia:Colombo"{
             ec{"Kolombo"}
         }
@@ -1443,11 +1440,6 @@ sr_Latn{
             lg{"Kina vreme"}
             ls{"Kinesko standardno vreme"}
         }
-        "meta:Choibalsan"{
-            ld{"Čojbalsan, letnje vreme"}
-            lg{"Čojbalsan vreme"}
-            ls{"Čojbalsan, standardno vreme"}
-        }
         "meta:Christmas"{
             ls{"Božićno ostrvo vreme"}
         }
@@ -1623,6 +1615,9 @@ sr_Latn{
             ld{"Petropavlovsko-kamčatsko letnje računanje vremena"}
             lg{"Petropavlovsko-kamčatsko vreme"}
             ls{"Petropavlovsko-kamčatsko standardno vreme"}
+        }
+        "meta:Kazakhstan"{
+            ls{"Kazahstansko vreme"}
         }
         "meta:Kazakhstan_Eastern"{
             ls{"Istočno-kazahstansko vreme"}

@@ -69,9 +69,6 @@ eu{
         "America:Cuiaba"{
             ec{"Cuiabá"}
         }
-        "America:Curacao"{
-            ec{"Curaçao"}
-        }
         "America:Dominica"{
             ec{"Dominika"}
         }
@@ -161,9 +158,6 @@ eu{
         }
         "Asia:Chita"{
             ec{"Txita"}
-        }
-        "Asia:Choibalsan"{
-            ec{"Txoibalsan"}
         }
         "Asia:Colombo"{
             ec{"Kolombo"}
@@ -574,11 +568,6 @@ eu{
             lg{"Txinako ordua"}
             ls{"Txinako ordu estandarra"}
         }
-        "meta:Choibalsan"{
-            ld{"Txoibalsango udako ordua"}
-            lg{"Txoibalsango ordua"}
-            ls{"Txoibalsango ordu estandarra"}
-        }
         "meta:Christmas"{
             ls{"Christmas uharteko ordua"}
         }
@@ -757,6 +746,9 @@ eu{
             ld{"Petropavlovsk-Kamchatskiko udako ordua"}
             lg{"Petropavlovsk-Kamchatskiko ordua"}
             ls{"Petropavlovsk-Kamchatskiko ordu estandarra"}
+        }
+        "meta:Kazakhstan"{
+            ls{"Kazakhstango ordua"}
         }
         "meta:Kazakhstan_Eastern"{
             ls{"Kazakhstango ekialdeko ordua"}
@@ -1053,7 +1045,7 @@ eu{
         "meta:Yukon"{
             ls{"Yukongo ordua"}
         }
-        hourFormat{"+HH:mm;−HH:mm"}
+        hourFormat{"+HH:mm;–HH:mm"}
         regionFormat{"{0} aldeko ordua"}
         regionFormatDaylight{"{0} (udako ordua)"}
         regionFormatStandard{"{0} aldeko ordu estandarra"}

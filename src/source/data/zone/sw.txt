@@ -205,11 +205,6 @@ sw{
             lg{"Saa za Uchina"}
             ls{"Saa za Wastani za Uchina"}
         }
-        "meta:Choibalsan"{
-            ld{"Saa za Majira ya joto za Choibalsan"}
-            lg{"Saa za Choibalsan"}
-            ls{"Saa za Wastani za Choibalsan"}
-        }
         "meta:Christmas"{
             ls{"Saa za Kisiwa cha Krismasi"}
         }
@@ -372,6 +367,9 @@ sw{
             ld{"Saa za Kiangazi za Petropavlovsk-Kamchatski"}
             lg{"Saa za Petropavlovsk-Kamchatski"}
             ls{"Saa za Wastani za Petropavlovsk-Kamchatski"}
+        }
+        "meta:Kazakhstan"{
+            ls{"Saa za Kazakhstan"}
         }
         "meta:Kazakhstan_Eastern"{
             ls{"Saa za Kazakhstan Mashariki"}

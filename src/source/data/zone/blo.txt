@@ -648,9 +648,6 @@ blo{
         "Asia:Chita"{
             ec{"Shitaa"}
         }
-        "Asia:Choibalsan"{
-            ec{"Koibalsaan"}
-        }
         "Asia:Colombo"{
             ec{"Kolomboo"}
         }
@@ -1370,11 +1367,6 @@ blo{
             lg{"Caɩna kaakɔŋkɔŋɔ̀"}
             ls{"Caɩna kaakɔŋkɔŋɔ̀ ɖeiɖei"}
         }
-        "meta:Choibalsan"{
-            ld{"Koibalsaan kaakɔŋkɔŋɔ̀ gafʊbaka"}
-            lg{"Koibalsaan kaakɔŋkɔŋɔ̀"}
-            ls{"Koibalsaan kaakɔŋkɔŋɔ̀ ɖeiɖei"}
-        }
         "meta:Christmas"{
             ls{"Nowɛl kaAtukǝltǝna kaakɔŋkɔŋɔ̀"}
         }
@@ -1536,6 +1528,9 @@ blo{
             ld{"Japaŋ kaakɔŋkɔŋɔ̀ gafʊbaka"}
             lg{"Japaŋ kaakɔŋkɔŋɔ̀"}
             ls{"Japaŋ kaakɔŋkɔŋɔ̀ ɖeiɖei"}
+        }
+        "meta:Kazakhstan"{
+            ls{"Kasastan kaakɔŋkɔŋɔ̀"}
         }
         "meta:Kazakhstan_Eastern"{
             ls{"Kasastan gajakalaŋ kaakɔŋkɔŋɔ̀"}

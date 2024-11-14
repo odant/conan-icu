@@ -399,11 +399,6 @@ pt_PT{
             lg{"Hora da China"}
             ls{"Hora padrão da China"}
         }
-        "meta:Choibalsan"{
-            ld{"Hora de verão de Choibalsan"}
-            lg{"Hora de Choibalsan"}
-            ls{"Hora padrão de Choibalsan"}
-        }
         "meta:Christmas"{
             ls{"Hora da Ilha do Natal"}
         }
@@ -578,6 +573,9 @@ pt_PT{
             ld{"Hora de verão de Petropavlovsk-Kamchatski"}
             lg{"Hora de Petropavlovsk-Kamchatski"}
             ls{"Hora padrão de Petropavlovsk-Kamchatski"}
+        }
+        "meta:Kazakhstan"{
+            ls{"Hora do Cazaquistão"}
         }
         "meta:Kazakhstan_Eastern"{
             ls{"Hora do Cazaquistão Oriental"}

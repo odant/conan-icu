@@ -383,11 +383,6 @@ jv{
             lg{"Wektu Cina"}
             ls{"Wektu Standar Cina"}
         }
-        "meta:Choibalsan"{
-            ld{"WEktu Ketigo Choibalsan"}
-            lg{"Wektu Choibalsan"}
-            ls{"Wektu Standar Choibalsan"}
-        }
         "meta:Christmas"{
             ls{"Wektu Pulo Natal"}
         }
@@ -545,6 +540,9 @@ jv{
             ld{"Wektu Ketigo Jepang"}
             lg{"Wektu Jepang"}
             ls{"Wektu Standar Jepang"}
+        }
+        "meta:Kazakhstan"{
+            ls{"Wektu Kazakhstan"}
         }
         "meta:Kazakhstan_Eastern"{
             ls{"Wektu Kazakhstan Wetan"}

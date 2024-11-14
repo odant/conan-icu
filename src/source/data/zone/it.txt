@@ -33,26 +33,17 @@ it{
         "Africa:Ndjamena"{
             ec{"N’Djamena"}
         }
-        "Africa:Sao_Tome"{
-            ec{"São Tomé"}
-        }
         "Africa:Tunis"{
             ec{"Tunisi"}
         }
         "America:Argentina:Tucuman"{
             ec{"Tucumán"}
         }
-        "America:Asuncion"{
-            ec{"Asunción"}
-        }
         "America:Bogota"{
             ec{"Bogotá"}
         }
         "America:Cayenne"{
             ec{"Caienna"}
-        }
-        "America:Curacao"{
-            ec{"Curaçao"}
         }
         "America:Guadeloupe"{
             ec{"Guadalupa"}
@@ -459,11 +450,6 @@ it{
             lg{"Ora della Cina"}
             ls{"Ora standard della Cina"}
         }
-        "meta:Choibalsan"{
-            ld{"Ora legale di Choibalsan"}
-            lg{"Ora di Choibalsan"}
-            ls{"Ora standard di Choibalsan"}
-        }
         "meta:Christmas"{
             ls{"Ora dell’Isola Christmas"}
         }
@@ -635,6 +621,9 @@ it{
             ld{"Ora legale di Petropavlovsk-Kamchatski"}
             lg{"Ora di Petropavlovsk-Kamchatski"}
             ls{"Ora standard di Petropavlovsk-Kamchatski"}
+        }
+        "meta:Kazakhstan"{
+            ls{"Ora del Kazakistan"}
         }
         "meta:Kazakhstan_Eastern"{
             ls{"Ora del Kazakistan orientale"}

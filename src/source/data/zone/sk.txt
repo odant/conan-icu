@@ -3,6 +3,9 @@
 // Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 sk{
     zoneStrings{
+        "Africa:Accra"{
+            ec{"Akkra"}
+        }
         "Africa:Addis_Ababa"{
             ec{"Addis Abeba"}
         }
@@ -11,6 +14,9 @@ sk{
         }
         "Africa:Cairo"{
             ec{"Káhira"}
+        }
+        "Africa:Conakry"{
+            ec{"Konakry"}
         }
         "Africa:Djibouti"{
             ec{"Džibuti"}
@@ -36,9 +42,6 @@ sk{
         "Africa:Tripoli"{
             ec{"Tripolis"}
         }
-        "America:Asuncion"{
-            ec{"Asunción"}
-        }
         "America:Bahia_Banderas"{
             ec{"Bahia Banderas"}
         }
@@ -59,9 +62,6 @@ sk{
         }
         "America:Cuiaba"{
             ec{"Cuiabá"}
-        }
-        "America:Curacao"{
-            ec{"Curaçao"}
         }
         "America:Dominica"{
             ec{"Dominika"}
@@ -120,6 +120,9 @@ sk{
         "Antarctica:Syowa"{
             ec{"Šówa"}
         }
+        "Asia:Almaty"{
+            ec{"Alma‑Ata"}
+        }
         "Asia:Amman"{
             ec{"Ammán"}
         }
@@ -152,9 +155,6 @@ sk{
         }
         "Asia:Chita"{
             ec{"Čita"}
-        }
-        "Asia:Choibalsan"{
-            ec{"Čojbalsan"}
         }
         "Asia:Colombo"{
             ec{"Kolombo"}
@@ -433,9 +433,6 @@ sk{
         "Indian:Mauritius"{
             ec{"Maurícius"}
         }
-        "Indian:Reunion"{
-            ec{"Réunion"}
-        }
         "Pacific:Easter"{
             ec{"Veľkonočný ostrov"}
         }
@@ -637,11 +634,6 @@ sk{
             lg{"čínsky čas"}
             ls{"čínsky štandardný čas"}
         }
-        "meta:Choibalsan"{
-            ld{"čojbalsanský letný čas"}
-            lg{"čojbalsanský čas"}
-            ls{"čojbalsanský štandardný čas"}
-        }
         "meta:Christmas"{
             ls{"čas Vianočného ostrova"}
         }
@@ -810,6 +802,9 @@ sk{
             ld{"Petropavlovsk-Kamčatskijský letný čas"}
             lg{"Petropavlovsk-Kamčatský čas"}
             ls{"Petropavlovsk-Kamčatský štandardný čas"}
+        }
+        "meta:Kazakhstan"{
+            ls{"kazachstanský čas"}
         }
         "meta:Kazakhstan_Eastern"{
             ls{"východokazachstanský čas"}

@@ -594,9 +594,6 @@ lv{
         "Asia:Chita"{
             ec{"Čita"}
         }
-        "Asia:Choibalsan"{
-            ec{"Čoibalsana"}
-        }
         "Asia:Colombo"{
             ec{"Kolombo"}
         }
@@ -1269,11 +1266,6 @@ lv{
             lg{"Ķīnas laiks"}
             ls{"Ķīnas ziemas laiks"}
         }
-        "meta:Choibalsan"{
-            ld{"Čoibalsanas vasaras laiks"}
-            lg{"Čoibalsanas laiks"}
-            ls{"Čoibalsanas ziemas laiks"}
-        }
         "meta:Christmas"{
             ls{"Ziemsvētku salas laiks"}
         }
@@ -1445,6 +1437,9 @@ lv{
             ld{"Petropavlovskas-Kamčatskas vasaras laiks"}
             lg{"Petropavlovskas-Kamčatskas laiks"}
             ls{"Petropavlovskas-Kamčatskas ziemas laiks"}
+        }
+        "meta:Kazakhstan"{
+            ls{"Kazahstānas laiks"}
         }
         "meta:Kazakhstan_Eastern"{
             ls{"Austrumkazahstānas laiks"}

@@ -477,9 +477,6 @@ uz{
         "Asia:Calcutta"{
             ec{"Kalkutta"}
         }
-        "Asia:Choibalsan"{
-            ec{"Choybalsan"}
-        }
         "Asia:Colombo"{
             ec{"Kolombo"}
         }
@@ -547,7 +544,7 @@ uz{
             ec{"Pxenyan"}
         }
         "Asia:Qostanay"{
-            ec{"Kustanay"}
+            ec{"Qoʻstanay"}
         }
         "Asia:Qyzylorda"{
             ec{"Qizilo‘rda"}
@@ -1028,11 +1025,6 @@ uz{
             lg{"Xitoy vaqti"}
             ls{"Xitoy standart vaqti"}
         }
-        "meta:Choibalsan"{
-            ld{"Choybalsan yozgi vaqti"}
-            lg{"Choybalsan vaqti"}
-            ls{"Choybalsan standart vaqti"}
-        }
         "meta:Christmas"{
             ls{"Rojdestvo oroli vaqti"}
         }
@@ -1190,6 +1182,9 @@ uz{
             ld{"Yaponiya yozgi vaqti"}
             lg{"Yaponiya vaqti"}
             ls{"Yaponiya standart vaqti"}
+        }
+        "meta:Kazakhstan"{
+            ls{"Qozogʻiston vaqti"}
         }
         "meta:Kazakhstan_Eastern"{
             ls{"Sharqiy Qozogʻiston vaqti"}

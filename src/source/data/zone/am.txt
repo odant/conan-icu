@@ -678,9 +678,6 @@ am{
         "Asia:Chita"{
             ec{"ቺታ"}
         }
-        "Asia:Choibalsan"{
-            ec{"ቾይባልሳን"}
-        }
         "Asia:Colombo"{
             ec{"ኮሎምቦ"}
         }
@@ -1422,11 +1419,6 @@ am{
             lg{"የቻይና ሰዓት"}
             ls{"የቻይና መደበኛ ሰዓት"}
         }
-        "meta:Choibalsan"{
-            ld{"የቾይባልሳን የበጋ የሰዓት አቆጣጠር"}
-            lg{"የቾይባልሳ ሰዓት አቆጣጠር"}
-            ls{"የቾይባልሳን መደበኛ የሰዓት አቆጣጠር"}
-        }
         "meta:Christmas"{
             ls{"የገና ደሴት ሰዓት"}
         }
@@ -1589,6 +1581,9 @@ am{
             ld{"የፔትሮፓቭሎስኪ - ካምቻትስኪ የበጋ ሰዓት አቆጣጠር"}
             lg{"የካምቻትካ ሰዓት አቆጣጠር"}
             ls{"የፔትሮፓቭሎስኪ - ካምቻትስኪ ሰዓት አቆጣጠር"}
+        }
+        "meta:Kazakhstan"{
+            ls{"ካዛኪስታን ሰዓት"}
         }
         "meta:Kazakhstan_Eastern"{
             ls{"የምስራቅ ካዛኪስታን ሰዓት"}
@@ -1872,7 +1867,7 @@ am{
         gmtFormat{"ጂ ኤም ቲ{0}"}
         gmtZeroFormat{"ጂ ኤም ቲ"}
         hourFormat{"+HHmm;-HHmm"}
-        regionFormat{"{0} ጊዜ"}
+        regionFormat{"{0} ሰዓት"}
         regionFormatDaylight{"{0} የቀን ብርሃን ሰዓት"}
         regionFormatStandard{"{0} መደበኛ ሰዓት"}
     }

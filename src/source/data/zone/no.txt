@@ -21,17 +21,11 @@ no{
         "Africa:Lome"{
             ec{"Lomé"}
         }
-        "Africa:Sao_Tome"{
-            ec{"São Tomé"}
-        }
         "America:Araguaina"{
             ec{"Araguaína"}
         }
         "America:Argentina:Tucuman"{
             ec{"Tucumán"}
-        }
-        "America:Asuncion"{
-            ec{"Asunción"}
         }
         "America:Bahia_Banderas"{
             ec{"Bahía Banderas"}
@@ -50,9 +44,6 @@ no{
         }
         "America:Cuiaba"{
             ec{"Cuiabá"}
-        }
-        "America:Curacao"{
-            ec{"Curaçao"}
         }
         "America:Maceio"{
             ec{"Maceió"}
@@ -95,9 +86,6 @@ no{
         }
         "Asia:Chita"{
             ec{"Tsjita"}
-        }
-        "Asia:Choibalsan"{
-            ec{"Choybalsan"}
         }
         "Asia:Damascus"{
             ec{"Damaskus"}
@@ -263,9 +251,6 @@ no{
         }
         "Indian:Maldives"{
             ec{"Maldivene"}
-        }
-        "Indian:Reunion"{
-            ec{"Réunion"}
         }
         "Pacific:Easter"{
             ec{"Påskeøya"}
@@ -486,11 +471,6 @@ no{
             lg{"kinesisk tid"}
             ls{"kinesisk normaltid"}
         }
-        "meta:Choibalsan"{
-            ld{"sommertid for Tsjojbalsan"}
-            lg{"tidssone for Tsjojbalsan"}
-            ls{"normaltid for Tsjojbalsan"}
-        }
         "meta:Christmas"{
             ls{"tidssone for Christmasøya"}
         }
@@ -669,6 +649,9 @@ no{
             ld{"Russisk (Petropavlovsk-Kamtsjatskij) sommertid"}
             lg{"Russisk (Petropavlovsk-Kamtsjatskij) tid"}
             ls{"Russisk (Petropavlovsk-Kamtsjatskij) normaltid"}
+        }
+        "meta:Kazakhstan"{
+            ls{"kasakhstansk tid"}
         }
         "meta:Kazakhstan_Eastern"{
             ls{"østkasakhstansk tid"}

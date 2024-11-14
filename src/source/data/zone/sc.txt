@@ -21,9 +21,6 @@ sc{
         "Africa:Porto-Novo"{
             ec{"Portu-Nou"}
         }
-        "Africa:Sao_Tome"{
-            ec{"São Tomé"}
-        }
         "Africa:Tripoli"{
             ec{"Trìpoli"}
         }
@@ -32,9 +29,6 @@ sc{
         }
         "America:Argentina:Tucuman"{
             ec{"Tucumán"}
-        }
-        "America:Curacao"{
-            ec{"Curaçao"}
         }
         "America:Havana"{
             ec{"S’Avana"}
@@ -470,11 +464,6 @@ sc{
             lg{"Ora de sa Tzina"}
             ls{"Ora istandard de sa Tzina"}
         }
-        "meta:Choibalsan"{
-            ld{"Ora legale de Choibalsan"}
-            lg{"Ora de Choibalsan"}
-            ls{"Ora istandard de Choibalsan"}
-        }
         "meta:Christmas"{
             ls{"Ora de s’Ìsula de sa Natividade"}
         }
@@ -641,6 +630,9 @@ sc{
             ld{"Ora legale de Petropavlovsk-Kamchatski"}
             lg{"Ora de Petropavlovsk-Kamchatski"}
             ls{"Ora istandard de Petropavlovsk-Kamchatski"}
+        }
+        "meta:Kazakhstan"{
+            ls{"Ora de su Kazàkistan"}
         }
         "meta:Kazakhstan_Eastern"{
             ls{"Ora de su Kazàkistan orientale"}

@@ -594,9 +594,6 @@ so{
         "Asia:Chita"{
             ec{"Jiita"}
         }
-        "Asia:Choibalsan"{
-            ec{"Joybalsan"}
-        }
         "Asia:Colombo"{
             ec{"Kolombo"}
         }
@@ -1260,11 +1257,6 @@ so{
             lg{"Waqtiga Shiinaha"}
             ls{"Waqtiga Caadiga Ah ee Shiinaha"}
         }
-        "meta:Choibalsan"{
-            ld{"Waqtiga Xagaaga ee Joybalsan"}
-            lg{"Waqtiga Joybalsan"}
-            ls{"Waqtiga Caadiga Ah ee Joybalsan"}
-        }
         "meta:Christmas"{
             ls{"Waqtiga Kirismas Aylaan"}
         }
@@ -1430,6 +1422,9 @@ so{
             ld{"Wakhtiga Kulka ee Petropavlovsk-Kamchatski"}
             lg{"Wakhtiga Petropavlovsk-Kamchatski"}
             ls{"Wakhtiga Caadiga ah ee Petropavlovsk-Kamchatski"}
+        }
+        "meta:Kazakhstan"{
+            ls{"Wakhtiga Kazakhistan"}
         }
         "meta:Kazakhstan_Eastern"{
             ls{"Waqtiga Bariga Kasakhistaan"}
