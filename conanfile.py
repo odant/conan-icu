@@ -1,9 +1,10 @@
 # ICU Conan package
 # Dmitriy Vetutnev, ODANT 2018-2020
+# Arkady Yudintsev, ODANT 2021-2025
 
 
-from conans import ConanFile, tools
-import os, glob
+from conan import ConanFile, tools
+import os, glob, shutil, platform
 
 
 class ICUConan(ConanFile):
@@ -13,12 +14,7 @@ class ICUConan(ConanFile):
     description = "ICU is a mature, widely used set of C/C++ and Java libraries " \
                   "providing Unicode and Globalization support for software applications."
     url = "https://github.com/odant/conan-icu"
-    settings = {
-        "os": ["Windows", "Linux"],
-        "compiler": ["Visual Studio", "gcc", "clang"],
-        "build_type": ["Debug", "Release"],
-        "arch": ["x86", "x86_64", "mips", "armv7"]
-    }
+    settings = "os", "compiler", "build_type", "arch"
     options = {
         "dll_sign": [True, False],
         "with_unit_tests": [True, False],
@@ -29,44 +25,52 @@ class ICUConan(ConanFile):
         "with_unit_tests": False,
         "shared": True
     }
-    exports_sources = "src/*", "FindICU.cmake", "msvc.patch", "data_rc.patch", "icudata-stdlibs.patch"
+    exports_sources = "src/*", "msvc.patch", "data_rc.patch", "icudata-stdlibs.patch"
     no_copy_source = False
     build_policy = "missing"
+    package_type = "library"
+    python_requires = "windows_signtool/[>=1.2]@odant/stable"
 
     def configure(self):
         # Only C++11
         if self.settings.compiler.get_safe("libcxx") == "libstdc++":
             raise Exception("This package is only compatible with libstdc++11")
         # MT(d) static library
-        if self.settings.os == "Windows" and self.settings.compiler == "Visual Studio":
-            if self.settings.compiler.runtime == "MT" or self.settings.compiler.runtime == "MTd":
-                self.options.shared=False
+        if self.settings.os == "Windows" and self.settings.compiler == "msvc":
+            if self.settings.compiler.runtime == "static":
+                self.options.shared = False
         # DLL sign, only Windows and shared
         if self.settings.os != "Windows" or self.options.shared == False:
-            del self.options.dll_sign
+            self.options.rm_safe("dll_sign")
 
     def build_requirements(self):
-        if self.settings.os == "Windows" and self.settings.compiler == "Visual Studio":
-            self.build_requires("cygwin_installer/2.9.0@bincrafters/stable")
-        if self.options.get_safe("dll_sign"):
-            self.build_requires("windows_signtool/[>=1.2]@%s/stable" % self.user)
+        if self.settings.os == "Windows":
+            self.win_bash = True
+            if not self.conf.get("tools.microsoft.bash:path", check_type=str):
+                self.tool_requires("msys2/cci.latest")
 
     def source(self):
-        tools.patch(patch_file="msvc.patch")
-        tools.patch(patch_file="data_rc.patch")
-        tools.patch(patch_file="icudata-stdlibs.patch")
-        if not tools.os_info.is_windows:
-            self.run("chmod a+x %s" % os.path.join(self.source_folder, "src/source/configure"))
+        tools.files.patch(self, patch_file="msvc.patch")
+        tools.files.patch(self, patch_file="data_rc.patch")
+        tools.files.patch(self, patch_file="icudata-stdlibs.patch")
+        if platform.system() != "Windows":
+            self.run("chmod a+x %s" % os.path.join(self.source_folder, "src", "source", "configure"))
+    
+    def generate(self):
+        env = tools.env.VirtualBuildEnv(self)
+        env.generate()
+        if tools.microsoft.is_msvc(self):
+            vc = tools.microsoft.VCVars(self)
+            vc.generate()
 
     def build(self):
         flags = self.get_build_flags()
         install_folder = os.path.join(self.build_folder, "icu_install").replace("\\", "/")
-        flags.append("--prefix=%s" % tools.unix_path(install_folder))
-        build_env = self.get_build_environment()
-        with tools.chdir("src/source"), tools.environment_append(build_env):
+        flags.append("--prefix=%s" % tools.microsoft.subsystems.unix_path(self, install_folder))
+        with tools.files.chdir(self, os.path.join(self.source_folder, "src", "source")):
             self.run("bash -C runConfigureICU %s" % " ".join(flags))
             debug_arg = "VERBOSE=1" if self.settings.build_type == "Debug" else ""
-            self.run("make %s -j %s" % (debug_arg, tools.cpu_count()))
+            self.run("make %s -j %s" % (debug_arg, tools.build.build_jobs(self)))
             self.run("make install")
             if self.options.with_unit_tests:
                 self.run("make check")
@@ -110,12 +114,12 @@ class ICUConan(ConanFile):
         return flags
 
     def get_target_platform(self):
-        if self.settings.os == "Windows" and self.settings.compiler == "Visual Studio":
+        if self.settings.os == "Windows" and self.settings.compiler == "msvc":
             platform = "Cygwin/MSVC"
             vs_toolset = str(self.settings.compiler.toolset).lower()
             if vs_toolset == "clangcl":
                 platform += "_ClangCL"
-            if self.settings.compiler.runtime == "MT" or self.settings.compiler.runtime == "MTd":
+            if self.settings.compiler.runtime == "static":
                 platform += "_MT"
             self.output.info("Using '%s' target platform" % platform)
             return platform
@@ -127,56 +131,81 @@ class ICUConan(ConanFile):
         else:
             raise Exception("Unsupported target platform!")
 
-    def get_build_environment(self):
-        env = {}
-        if self.settings.os == "Windows" and self.settings.compiler == "Visual Studio":
-            env = tools.vcvars_dict(self)
-        return env
-
     def package(self):
-        # CMake script
-        self.copy("FindICU.cmake", dst=".", src=".", keep_path=False)
         # Headers
-        self.copy("*", dst="include", src="icu_install/include", keep_path=True)
-        # Linux libraries
-        self.copy("libicudata.so*", dst="lib", src="icu_install/lib", keep_path=False, symlinks=True)
-        self.copy("libicuuc.so*", dst="lib", src="icu_install/lib", keep_path=False, symlinks=True)
-        self.copy("libicui18n.so*", dst="lib", src="icu_install/lib", keep_path=False, symlinks=True)
-        self.copy("libicuio.so*", dst="lib", src="icu_install/lib", keep_path=False, symlinks=True)
-        self.copy("libicudata.a", dst="lib", src="icu_install/lib", keep_path=False)
-        self.copy("libicuuc.a", dst="lib", src="icu_install/lib", keep_path=False)
-        self.copy("libicui18n.a", dst="lib", src="icu_install/lib", keep_path=False)
-        self.copy("libicuio.a", dst="lib", src="icu_install/lib", keep_path=False)
-        # Windows libraries
-        self.copy("*.dll", dst="bin", src="src/source/lib", keep_path=False, excludes=["icutu*", "sicutu*"])
-        self.copy("*.pdb", dst="bin", src="src/source/lib", keep_path=False, excludes=["icutu*", "sicutu*"])
-        self.copy("*.lib", dst="lib", src="src/source/lib", keep_path=False, excludes=["icutu*", "sicutu*"])
+        tools.files.copy(self, "*", dst=os.path.join(self.package_folder, "include"), src=os.path.join(self.build_folder, "icu_install", "include"), keep_path=True)
+        if self.settings.os == "Windows":        
+            tools.files.copy(self, "*.dll", dst=os.path.join(self.package_folder, "bin"), src=os.path.join(self.source_folder, "src", "source", "lib"), keep_path=False, excludes=["icutu*", "sicutu*", "icutest*", "sicutest*"])
+            tools.files.copy(self, "*.pdb", dst=os.path.join(self.package_folder, "bin"), src=os.path.join(self.source_folder, "src", "source", "lib"), keep_path=False, excludes=["icutu*", "sicutu*", "icutest*", "sicutest*"])
+            tools.files.copy(self, "*.lib", dst=os.path.join(self.package_folder, "lib"), src=os.path.join(self.source_folder, "src", "source", "lib"), keep_path=False, excludes=["icutu*", "sicutu*", "icutest*", "sicutest*"])
+        else:        
+            # Linux libraries
+            tools.files.copy(self, "libicudata.so*", dst=os.path.join(self.package_folder, "lib"), src=os.path.join(self.build_folder, "icu_install", "lib"), keep_path=False)
+            tools.files.copy(self, "libicuuc.so*", dst=os.path.join(self.package_folder, "lib"), src=os.path.join(self.build_folder, "icu_install", "lib"), keep_path=False)
+            tools.files.copy(self, "libicui18n.so*", dst=os.path.join(self.package_folder, "lib"), src=os.path.join(self.build_folder, "icu_install", "lib"), keep_path=False)
+            tools.files.copy(self, "libicuio.so*", dst=os.path.join(self.package_folder, "lib"), src=os.path.join(self.build_folder, "icu_install", "lib"), keep_path=False)
+            tools.files.copy(self, "libicudata.a", dst=os.path.join(self.package_folder, "lib"), src=os.path.join(self.build_folder, "icu_install", "lib"), keep_path=False)
+            tools.files.copy(self, "libicuuc.a", dst=os.path.join(self.package_folder, "lib"), src=os.path.join(self.build_folder, "icu_install", "lib"), keep_path=False)
+            tools.files.copy(self, "libicui18n.a", dst=os.path.join(self.package_folder, "lib"), src=os.path.join(self.build_folder, "icu_install", "lib"), keep_path=False)
+            tools.files.copy(self, "libicuio.a", dst=os.path.join(self.package_folder, "lib"), src=os.path.join(self.build_folder, "icu_install", "lib"), keep_path=False)
         # Sign DLL
         if self.options.get_safe("dll_sign"):
-            import windows_signtool
-            pattern = os.path.join(self.package_folder, "bin", "*.dll")
-            for fpath in glob.glob(pattern):
-                fpath = fpath.replace("\\", "/")
-                for alg in ["sha1", "sha256"]:
-                    is_timestamp = True if self.settings.build_type == "Release" else False
-                    cmd = windows_signtool.get_sign_command(fpath, digest_algorithm=alg, timestamp=is_timestamp)
-                    self.output.info("Sign %s" % fpath)
-                    self.run(cmd)
-
-        # Debug build in local folder
-        if not self.in_local_cache:
-            self.copy("conanfile.py", dst=".", keep_path=False)
+            self.win_bash = False
+            self.python_requires["windows_signtool"].module.sign(self, [os.path.join(self.package_folder, "bin", "*.dll")])
 
     def package_id(self):
         # ICU unit testing shouldn't affect the package's ID
         self.info.options.with_unit_tests = "any"
 
     def package_info(self):
-        self.cpp_info.defines = ["U_DISABLE_RENAMING=1"]
+        self.cpp_info.set_property("cmake_find_mode", "both")
+        self.cpp_info.set_property("cmake_file_name", "ICU")
+
+        prefix = "s" if self.settings.os == "Windows" and not self.options.shared else ""
+        suffix = "d" if self.settings.os == "Windows" and self.settings.build_type == "Debug" else ""
+
+        # icudata
+        self.cpp_info.components["icu-data"].set_property("cmake_target_name", "ICU::data")
+        icudata_libname = "icudt" if self.settings.os == "Windows" else "icudata"
+        self.cpp_info.components["icu-data"].libs = [f"{prefix}{icudata_libname}{suffix}"]
+        self.cpp_info.components["icu-data"].defines.append("U_DISABLE_RENAMING=1")
         if not self.options.shared:
-            self.cpp_info.defines.append("U_STATIC_IMPLEMENTATION=1")
-        if self.settings.os == "Windows":
-            self.cpp_info.libs = tools.collect_libs(self)
-        else:
-            self.cpp_info.libs = ["icuio", "icui18n", "icuuc", "icudata", "pthread"]
+            self.cpp_info.components["icu-data"].defines.append("U_STATIC_IMPLEMENTATION")
+            # icu uses c++, so add the c++ runtime
+            libcxx = stdcpp_library(self)
+            if libcxx:
+                self.cpp_info.components["icu-data"].system_libs.append(libcxx)
+
+        # Alias of data CMake component
+        self.cpp_info.components["icu-data-alias"].set_property("cmake_target_name", "ICU::dt")
+        self.cpp_info.components["icu-data-alias"].requires = ["icu-data"]
+
+        # icuuc
+        self.cpp_info.components["icu-uc"].set_property("cmake_target_name", "ICU::uc")
+        self.cpp_info.components["icu-uc"].set_property("pkg_config_name", "icu-uc")
+        self.cpp_info.components["icu-uc"].libs = [f"{prefix}icuuc{suffix}"]
+        self.cpp_info.components["icu-uc"].requires = ["icu-data"]
+        if self.settings.os in ["Linux", "FreeBSD"]:
+            self.cpp_info.components["icu-uc"].system_libs = ["m", "pthread"]
+        elif self.settings.os == "Windows":
+            self.cpp_info.components["icu-uc"].system_libs = ["advapi32"]
+
+        # icui18n
+        self.cpp_info.components["icu-i18n"].set_property("cmake_target_name", "ICU::i18n")
+        self.cpp_info.components["icu-i18n"].set_property("pkg_config_name", "icu-i18n")
+        icui18n_libname = "icuin" if self.settings.os == "Windows" else "icui18n"
+        self.cpp_info.components["icu-i18n"].libs = [f"{prefix}{icui18n_libname}{suffix}"]
+        self.cpp_info.components["icu-i18n"].requires = ["icu-uc"]
+        if self.settings.os in ["Linux", "FreeBSD"]:
+            self.cpp_info.components["icu-i18n"].system_libs = ["m"]
+
+        # Alias of i18n CMake component
+        self.cpp_info.components["icu-i18n-alias"].set_property("cmake_target_name", "ICU::in")
+        self.cpp_info.components["icu-i18n-alias"].requires = ["icu-i18n"]
+
+        # icuio
+        self.cpp_info.components["icu-io"].set_property("cmake_target_name", "ICU::io")
+        self.cpp_info.components["icu-io"].set_property("pkg_config_name", "icu-io")
+        self.cpp_info.components["icu-io"].libs = [f"{prefix}icuio{suffix}"]
+        self.cpp_info.components["icu-io"].requires = ["icu-i18n", "icu-uc"]
 
