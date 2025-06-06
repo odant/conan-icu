@@ -9,7 +9,7 @@ import os, glob, shutil, platform
 
 class ICUConan(ConanFile):
     name = "icu"
-    version = "76.1+0"
+    version = "76.1+1"
     license = "http://www.unicode.org/copyright.html#License"
     description = "ICU is a mature, widely used set of C/C++ and Java libraries " \
                   "providing Unicode and Globalization support for software applications."
