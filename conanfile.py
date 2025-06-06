@@ -114,11 +114,13 @@ class ICUConan(ConanFile):
         return flags
 
     def get_target_platform(self):
-        if self.settings.os == "Windows" and self.settings.compiler == "msvc":
-            platform = "Cygwin/MSVC"
-            vs_toolset = str(self.settings.compiler.toolset).lower()
-            if vs_toolset == "clangcl":
-                platform += "_ClangCL"
+        if self.settings.os == "Windows":
+            if self.settings.compiler == "msvc":
+                platform = "Cygwin/MSVC"
+            elif self.settings.compiler == "clang" and self.settings.compiler.runtime_version:
+                platform = "Cygwin/ClangCL"
+            else:
+               raise Exception("Unsupported compiler on Windows!")
             if self.settings.compiler.runtime == "static":
                 platform += "_MT"
             self.output.info("Using '%s' target platform" % platform)

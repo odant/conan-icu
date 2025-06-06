@@ -1,5 +1,5 @@
 diff --git a/src/source/runConfigureICU b/src/source/runConfigureICU
-index 7909c983..fb5da866 100755
+index a97aea53..5a78b986 100755
 --- a/src/source/runConfigureICU
 +++ b/src/source/runConfigureICU
 @@ -289,9 +289,42 @@ case $platform in
@@ -7,32 +7,10 @@ index 7909c983..fb5da866 100755
          CXX=cl; export CXX
          RELEASE_CFLAGS='-Gy -MD'
 -        RELEASE_CXXFLAGS='-Gy -MD'
-+        RELEASE_CXXFLAGS='-std:c++17 -Gy -MD'
++        RELEASE_CXXFLAGS='-std:c++20 -Gy -MD'
          DEBUG_CFLAGS='-FS -Zi -MDd'
 -        DEBUG_CXXFLAGS='-FS -Zi -MDd'
-+        DEBUG_CXXFLAGS='-std:c++17 -FS -Zi -MDd'
-+        DEBUG_LDFLAGS='-DEBUG'
-+        ;;
-+    Cygwin/MSVC_ClangCL)
-+        THE_OS="Windows with Cygwin"
-+        THE_COMP="Microsoft Visual C++ ClangCL (dynamic runtime)"
-+        CC=clang-cl; export CC
-+        CXX=clang-cl; export CXX
-+        RELEASE_CFLAGS='-Gy -MD'
-+        RELEASE_CXXFLAGS='-std:c++17 -Gy -MD'
-+        DEBUG_CFLAGS='-FS -Zi -MDd'
-+        DEBUG_CXXFLAGS='-std:c++17 -FS -Zi -MDd'
-+        DEBUG_LDFLAGS='-DEBUG'
-+        ;;
-+    Cygwin/MSVC_ClangCL_MT)
-+        THE_OS="Windows with Cygwin"
-+        THE_COMP="Microsoft Visual C++ ClangCL (static runtime)"
-+        CC=clang-cl; export CC
-+        CXX=clang-cl; export CXX
-+        RELEASE_CFLAGS='-Gy -MT'
-+        RELEASE_CXXFLAGS='-std:c++17 -Gy -MT'
-+        DEBUG_CFLAGS='-FS -Zi -MTd'
-+        DEBUG_CXXFLAGS='-std:c++17 -FS -Zi -MTd'
++        DEBUG_CXXFLAGS='-std:c++20 -FS -Zi -MDd'
 +        DEBUG_LDFLAGS='-DEBUG'
 +        ;;
 +    Cygwin/MSVC_MT)
@@ -41,9 +19,31 @@ index 7909c983..fb5da866 100755
 +        CC=cl; export CC
 +        CXX=cl; export CXX
 +        RELEASE_CFLAGS='-Gy -MT'
-+        RELEASE_CXXFLAGS='-std:c++17 -Gy -MT'
++        RELEASE_CXXFLAGS='-std:c++20 -Gy -MT'
 +        DEBUG_CFLAGS='-FS -Zi -MTd'
-+        DEBUG_CXXFLAGS='-std:c++17 -FS -Zi -MTd'
++        DEBUG_CXXFLAGS='-std:c++20 -FS -Zi -MTd'
++        DEBUG_LDFLAGS='-DEBUG'
++        ;;
++    Cygwin/ClangCL)
++        THE_OS="Windows with Cygwin"
++        THE_COMP="Microsoft Visual C++ ClangCL (dynamic runtime)"
++        CC=clang-cl; export CC
++        CXX=clang-cl; export CXX
++        RELEASE_CFLAGS='-Gy -MD'
++        RELEASE_CXXFLAGS='-std:c++20 -Gy -MD'
++        DEBUG_CFLAGS='-FS -Zi -MDd'
++        DEBUG_CXXFLAGS='-std:c++20 -FS -Zi -MDd'
++        DEBUG_LDFLAGS='-DEBUG'
++        ;;
++    Cygwin/ClangCL_MT)
++        THE_OS="Windows with Cygwin"
++        THE_COMP="Microsoft Visual C++ ClangCL (static runtime)"
++        CC=clang-cl; export CC
++        CXX=clang-cl; export CXX
++        RELEASE_CFLAGS='-Gy -MT'
++        RELEASE_CXXFLAGS='-std:c++20 -Gy -MT'
++        DEBUG_CFLAGS='-FS -Zi -MTd'
++        DEBUG_CXXFLAGS='-std:c++20 -FS -Zi -MTd'
          DEBUG_LDFLAGS='-DEBUG'
          ;;
      Cygwin/MSVC2005)
