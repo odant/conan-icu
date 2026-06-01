@@ -2549,6 +2549,13 @@ void UnicodeStringTest::TestU16StringView() {
     assertEquals("any + sv16", UnicodeString(true, u"anysv16", 7), x);
     x = any + str16;
     assertEquals("any + str16", UnicodeString(true, u"anystr16", 8), x);
+
+    // Check that ICU’s operator+ do not make the standard ones ambiguous on standard types.
+    // See ICU-23299.
+    std::u16string u16String = u"breites ";
+    char16_t mutableU16Array[] = u"Feld";
+    const std::u16string concatenation = u16String + mutableU16Array;
+    const std::u16string concatenationWithPointer = u16String + &*mutableU16Array;
 }
 
 void UnicodeStringTest::TestWStringView() {
@@ -2646,6 +2653,13 @@ void UnicodeStringTest::TestWStringView() {
     assertEquals("any + sv16", UnicodeString(true, L"anysv16", 7), x);
     x = any + str16;
     assertEquals("any + str16", UnicodeString(true, L"anystr16", 8), x);
+
+    // Check that ICU’s operator+ do not make the standard ones ambiguous on standard types.
+    // See ICU-23299.
+    std::wstring wideString = L"breites ";
+    wchar_t mutableWideArray[] = L"Feld";
+    const std::wstring concatenation = wideString + mutableWideArray;
+    const std::wstring concatenationWithPointer = wideString + &*mutableWideArray;
 #endif
 }
 
